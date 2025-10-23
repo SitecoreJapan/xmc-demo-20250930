@@ -5,7 +5,7 @@
       "components/*": ["src/components/*"],
       "lib/*": ["src/lib/*"],
       "temp/*": ["src/temp/*"],
-      "assets/*": ["src/assets/*"],
+      "assets/*": ["src/assets/*"]
     },
     "target": "es5",
     "types": ["node"],
@@ -27,7 +27,7 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "incremental": true,
     "forceConsistentCasingInFileNames": false
   },

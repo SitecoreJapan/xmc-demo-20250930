@@ -5,6 +5,7 @@ import { Form } from '@sitecore-content-sdk/nextjs';
 
 // Components imported from the app itself
 import * as PartialDesignDynamicPlaceholder from 'src/components/partial-design-dynamic-placeholder/PartialDesignDynamicPlaceholder';
+import * as MyListUsingGraphQL from 'src/components/list-page/MyListUsingGraphQL';
 
 
 // Components must be registered within the map to match the string key with component name in Sitecore
@@ -13,6 +14,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['FEaaSWrapper', FEaaSWrapper],
   ['Form', Form],
   ['PartialDesignDynamicPlaceholder', PartialDesignDynamicPlaceholder],
+  ['MyListUsingGraphQL', MyListUsingGraphQL],
 ]);
 
 export default componentMap;
