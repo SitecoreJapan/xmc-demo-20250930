@@ -5,7 +5,7 @@ import { combineImportEntries, defaultImportEntries } from '@sitecore-content-sd
 
 import { useEffect } from 'react';
 import React from 'react';
-import { Placeholder, CdpHelper, useSitecore } from '@sitecore-content-sdk/nextjs';
+import { Placeholder, CdpHelper, useSitecore, RichText } from '@sitecore-content-sdk/nextjs';
 import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import scConfig from 'sitecore.config';
 import { gql } from 'graphql-request';
@@ -15,6 +15,7 @@ import Image from 'next/image';
 import * as FEAAS from '@sitecore-feaas/clientside/react';
 import nextConfig from 'next.config';
 import { pageView } from '@sitecore-cloudsdk/events/browser';
+import { HelloWorld } from 'src/NonSitecoreComponents/HelloWorld';
 
 const importMap = [
   {
@@ -30,6 +31,7 @@ const importMap = [
       { name: 'Placeholder', value: Placeholder },
       { name: 'CdpHelper', value: CdpHelper },
       { name: 'useSitecore', value: useSitecore },
+      { name: 'RichText', value: RichText },
     ]
   },
   {
@@ -84,6 +86,12 @@ const importMap = [
     module: '@sitecore-cloudsdk/events/browser',
     exports: [
       { name: 'pageView', value: pageView },
+    ]
+  },
+  {
+    module: 'src/NonSitecoreComponents/HelloWorld',
+    exports: [
+      { name: 'HelloWorld', value: HelloWorld },
     ]
   }
 ];
