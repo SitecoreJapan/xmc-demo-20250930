@@ -50,6 +50,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   let paths: StaticPath[] = [];
   let fallback: boolean | 'blocking' = 'blocking';
 
+  console.log('Bootstrap initializing CloudSDK for page:', scConfig.api.edge.clientContextId);
+
   if (process.env.NODE_ENV !== 'development' && scConfig.generateStaticPaths) {
     try {
       paths = await client.getPagePaths(

@@ -18,6 +18,8 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
       return;
     }
 
+    console.log('Bootstrap initializing CloudSDK for page:', config.api.edge.clientContextId);
+
     const mode = page.mode;
     if (process.env.NODE_ENV === 'development')
       console.debug('Browser Events SDK is not initialized in development environment');
