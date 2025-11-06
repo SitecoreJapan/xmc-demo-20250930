@@ -2,11 +2,11 @@ import { type NextRequest, type NextFetchEvent, NextResponse } from 'next/server
 import {
   defineMiddleware,
   MultisiteMiddleware,
-  PersonalizeMiddleware,
   RedirectsMiddleware,
 } from '@sitecore-content-sdk/nextjs/middleware';
 import sites from '.sitecore/sites.json';
 import scConfig from 'sitecore.config';
+import { MyPersonalizeMiddleware } from './MyPersonalizeMiddleware';
 
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // If no Edge server contextId, skip Edge middlewares entirely.
@@ -43,7 +43,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     skip: () => false,
   });
 
-  const personalize = new PersonalizeMiddleware({
+  const personalize = new MyPersonalizeMiddleware({
     /**
      * List of sites for site resolver to work with
      */
