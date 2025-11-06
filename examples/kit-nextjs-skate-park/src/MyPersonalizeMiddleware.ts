@@ -12,7 +12,6 @@ import {
   PersonalizeMiddleware,
   PersonalizeMiddlewareConfig,
 } from '@sitecore-content-sdk/nextjs/middleware';
-import { REWRITE_HEADER_NAME } from '@sitecore-content-sdk/nextjs/types/middleware/middleware';
 
 /**
  * Object model of Experience Context data
@@ -150,7 +149,7 @@ export class MyPersonalizeMiddleware extends PersonalizeMiddleware {
       }
 
       // Path can be rewritten by previously executed middleware
-      const basePath = res?.headers.get(REWRITE_HEADER_NAME) || pathname;
+      const basePath = res?.headers.get('x-sc-rewrite') || pathname;
 
       // Rewrite to persononalized path
       const rewritePath = getPersonalizedRewrite(basePath, identifiedVariantIds);
