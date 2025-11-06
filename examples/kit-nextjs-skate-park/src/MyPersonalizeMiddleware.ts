@@ -1,6 +1,5 @@
 ﻿import { NextResponse, NextRequest } from 'next/server';
 import {
-  PersonalizeService,
   getPersonalizedRewrite,
   PersonalizeInfo,
   CdpHelper,
