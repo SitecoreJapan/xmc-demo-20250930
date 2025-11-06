@@ -27,7 +27,8 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
       if (config.api.edge?.clientContextId) {
         CloudSDK({
           sitecoreEdgeUrl: config.api.edge.edgeUrl,
-          sitecoreEdgeContextId: config.api.edge.clientContextId,
+          //sitecoreEdgeContextId: config.api.edge.clientContextId,
+          sitecoreEdgeContextId: process.env.NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID as string, // Use another context ID for client side
           siteName: page.siteName || config.defaultSite,
           enableBrowserCookie: true,
           // Replace with the top level cookie domain of the website that is being integrated e.g ".example.com" and not "www.example.com"
