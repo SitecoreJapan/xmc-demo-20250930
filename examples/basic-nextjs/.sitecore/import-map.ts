@@ -5,7 +5,7 @@ import { combineImportEntries, defaultImportEntries } from '@sitecore-content-sd
 
 import { useEffect } from 'react';
 import React from 'react';
-import { Placeholder, RichText, CdpHelper, useSitecore } from '@sitecore-content-sdk/nextjs';
+import { Placeholder, Text, Link, useSitecore, RichText, CdpHelper } from '@sitecore-content-sdk/nextjs';
 import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import scConfig from 'sitecore.config';
 import { gql } from 'graphql-request';
@@ -29,9 +29,11 @@ const importMap = [
     module: '@sitecore-content-sdk/nextjs',
     exports: [
       { name: 'Placeholder', value: Placeholder },
+      { name: 'Text', value: Text },
+      { name: 'Link', value: Link },
+      { name: 'useSitecore', value: useSitecore },
       { name: 'RichText', value: RichText },
       { name: 'CdpHelper', value: CdpHelper },
-      { name: 'useSitecore', value: useSitecore },
     ]
   },
   {
