@@ -1,6 +1,14 @@
 import { JSX } from 'react';
 import { ComponentProps } from 'lib/component-props';
-import { Field, LinkField, Text, Link, useSitecore } from '@sitecore-content-sdk/nextjs';
+import {
+  Field,
+  LinkField,
+  Text,
+  Link,
+  useSitecore,
+  Placeholder,
+} from '@sitecore-content-sdk/nextjs';
+import { useI18n } from 'next-localization';
 
 type TextLinkProps = ComponentProps & {
   fields: {
@@ -10,7 +18,11 @@ type TextLinkProps = ComponentProps & {
 };
 
 const TextLink = (props: TextLinkProps): JSX.Element => {
-  console.log('TextLink props fields:', props.fields);
+  const { t } = useI18n();
+  console.log('App rendered with pageProps2:', t('Test'));
+
+  //console.log('TextLink props fields:', props.fields);
+  console.log('props.rendering.uid is:', `${props.rendering.uid?.replace(/{|}/g, '')}`);
   const { page } = useSitecore();
   const isEditing = page.mode.isEditing;
   const hasDataSource = props.fields && Object.keys(props.fields).length > 0;
@@ -20,6 +32,18 @@ const TextLink = (props: TextLinkProps): JSX.Element => {
 
   return (
     <div className={`component ${props.params?.styles || 'default'}`}>
+      <div>
+        <Placeholder name="TextAndImage" rendering={props.rendering} />
+        {/* <Placeholder
+          name={`TextAndImage-${props.rendering.uid?.replace(/{|}/g, '')}`}
+          rendering={props.rendering}
+        /> */}
+        {/* <Placeholder name="TextAndImage" rendering={props.rendering} /> */}
+        {/* <Placeholder
+          name={`Text And Image-${props.params.DynamicPlaceholderId}`}
+          rendering={props.rendering}
+        /> */}
+      </div>
       <div>
         {hasDataSource ? (
           <div className="component-content">
