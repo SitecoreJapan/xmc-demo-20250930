@@ -9,6 +9,7 @@ import { Placeholder, Text, Link, useSitecore, RichText, CdpHelper } from '@site
 import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import scConfig from 'sitecore.config';
 import { gql } from 'graphql-request';
+import { useI18n } from 'next-localization';
 import { HelloWorld } from 'src/NonSitecoreComponents/HelloWorld';
 import Head from 'next/head';
 import client from 'lib/sitecore-client';
@@ -52,6 +53,12 @@ const importMap = [
     module: 'graphql-request',
     exports: [
       { name: 'gql', value: gql },
+    ]
+  },
+  {
+    module: 'next-localization',
+    exports: [
+      { name: 'useI18n', value: useI18n },
     ]
   },
   {

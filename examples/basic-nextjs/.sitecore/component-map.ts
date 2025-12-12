@@ -11,6 +11,7 @@ import * as RichText from 'src/components/D7KFArea/RichText';
 import * as ImageAlignmentTest from 'src/components/D7KFArea/ImageAlignmentTest';
 import * as D7KFArea from 'src/components/D7KFArea/D7KFArea';
 
+
 // Components must be registered within the map to match the string key with component name in Sitecore
 export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['BYOCWrapper', BYOCWrapper],
@@ -25,4 +26,3 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
 ]);
 
 export default componentMap;
-

@@ -11,7 +11,7 @@ const nextConfig = {
   i18n: {
     // These are all the locales you want to support in your application.
     // These should generally match (or at least be a subset of) those in Sitecore.
-    locales: ['en'],
+    locales: ['en', 'ja-JP'],
     // This is the locale that will be used when visiting a non-locale
     // prefixed path e.g. `/about`.
     defaultLocale: process.env.DEFAULT_LANGUAGE || process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en',
@@ -56,7 +56,7 @@ const nextConfig = {
       // sitemap route
       {
         source: '/sitemap:id([\\w-]{0,}).xml',
-        destination: '/api/sitemap'
+        destination: '/api/sitemap',
       },
       // feaas api route
       {
@@ -97,8 +97,8 @@ const nextConfig = {
       '@fontawesome': path.join(process.cwd(), './node_modules', 'font-awesome'),
     }).getImporter(),
     // temporary measure until new versions of bootstrap and font-awesome released
-    quietDeps: true,    
-    silenceDeprecations: ["import", "legacy-js-api"],
+    quietDeps: true,
+    silenceDeprecations: ['import', 'legacy-js-api'],
   },
 };
 

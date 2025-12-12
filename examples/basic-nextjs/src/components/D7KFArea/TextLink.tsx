@@ -10,14 +10,27 @@ import {
 } from '@sitecore-content-sdk/nextjs';
 import { useI18n } from 'next-localization';
 
-type TextLinkProps = ComponentProps & {
+type TextComponentProps = ComponentProps & {
   fields: {
     Text: Field<string>;
     URL: LinkField;
+    TargetTemplate: TemplateType[];
+    TargetPath: TargetPathType[];
   };
 };
+interface TemplateType {
+  id: string;
+}
+interface TargetPathType {
+  fields: Record<string, unknown>;
+}
 
-const TextLink = (props: TextLinkProps): JSX.Element => {
+const TextLink = (props: TextComponentProps): JSX.Element => {
+  console.log(' TargetTemplate value:', props.fields.TargetTemplate);
+  console.log(' TargetTemplate id:', props.fields.TargetTemplate[0]?.id);
+  console.log(' TargetPath value:', props.fields.TargetPath);
+  console.log(' TargetPath field Title:', props.fields.TargetPath[0].fields.Title);
+
   const { t } = useI18n();
   console.log('App rendered with pageProps2:', t('Test'));
 
