@@ -47,6 +47,11 @@ const nextConfig = {
         source: '/healthz',
         destination: '/api/healthz',
       },
+      {
+        source: '/-/media/:path*',
+        destination:
+          'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/jssmedia/:path*',
+      },
       // robots route
       {
         source: '/robots.txt',
