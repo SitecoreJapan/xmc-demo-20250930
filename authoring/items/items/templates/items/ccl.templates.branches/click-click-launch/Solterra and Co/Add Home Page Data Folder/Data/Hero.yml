@@ -40,7 +40,7 @@ Languages:
         sitecore\Admin
     - ID: "6ddc5fdf-e0fa-475a-9044-73da5ba78fb6"
       Hint: heroVideoOptional4
-      Value:
+      Value: 
     - ID: "6faddda8-a617-4cdc-b437-606aced129e2"
       Hint: heroImageOptional3
       Value: |
