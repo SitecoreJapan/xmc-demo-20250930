@@ -1,0 +1,13 @@
+{
+  "$schema": "../../.sitecore/schemas/ModuleFile.schema.json",
+  "namespace": "Project.Nexus",
+  "items": {
+    "includes": [
+      {
+        "name": "Nexus.templates.System.Media.Versioned",
+        "path": "/sitecore/templates/System/Media/Versioned",
+        "allowedPushOperations": "CreateUpdateAndDelete"
+      }
+    ]
+  }
+}
