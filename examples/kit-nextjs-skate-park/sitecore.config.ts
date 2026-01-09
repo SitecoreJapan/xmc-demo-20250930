@@ -27,7 +27,7 @@ export default defineConfig({
     locales: ['en'],
   },
   multisite: {
-    enabled: true,
+    enabled: false,
     useCookieResolution: () => process.env.VERCEL_ENV === 'preview',
   },
   personalize: {
