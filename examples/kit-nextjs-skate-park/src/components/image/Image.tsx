@@ -1,11 +1,4 @@
-import {
-  Field,
-  ImageField,
-  Link as ContentSdkLink,
-  LinkField,
-  Text,
-  useSitecore,
-} from '@sitecore-content-sdk/nextjs';
+import { Field, ImageField, LinkField, useSitecore } from '@sitecore-content-sdk/nextjs';
 import React, { CSSProperties } from 'react';
 import { ComponentProps } from 'lib/component-props';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
@@ -62,27 +55,31 @@ export const Banner: React.FC<ImageProps> = ({ params, fields }) => {
 };
 
 export const Default: React.FC<ImageProps> = (props) => {
-  const { page } = useSitecore();
-  const { fields, params } = props;
-  const { styles, RenderingIdentifier: id } = params;
+  // const { page } = useSitecore();
+  //const { fields, params } = props;
+  // const { styles, RenderingIdentifier: id } = params;
+
+  //const Image = () => <WrappedImage field={fields.Image} />;
+  //  const shouldWrapWithLink = !page.mode.isEditing && fields.TargetUrl?.value?.href;
+
+  const { fields } = props;
 
   if (!fields) {
     return <ImageDefault {...props} />;
   }
 
-  const Image = () => <WrappedImage field={fields.Image} />;
-  const shouldWrapWithLink = !page.mode.isEditing && fields.TargetUrl?.value?.href;
+  return <WrappedImage field={fields.Image} />;
 
-  return (
-    <ImageWrapper className={`component image ${styles}`} id={id}>
-      {shouldWrapWithLink ? (
-        <ContentSdkLink field={fields.TargetUrl}>
-          <Image />
-        </ContentSdkLink>
-      ) : (
-        <Image />
-      )}
-      <Text tag="span" className="image-caption field-imagecaption" field={fields.ImageCaption} />
-    </ImageWrapper>
-  );
+  // return (
+  //   <ImageWrapper className={`component image ${styles}`} id={id}>
+  //     {shouldWrapWithLink ? (
+  //       <ContentSdkLink field={fields.TargetUrl}>
+  //         <Image />
+  //       </ContentSdkLink>
+  //     ) : (
+  //       <Image />
+  //     )}
+  //     <Text tag="span" className="image-caption field-imagecaption" field={fields.ImageCaption} />
+  //   </ImageWrapper>
+  // );
 };
