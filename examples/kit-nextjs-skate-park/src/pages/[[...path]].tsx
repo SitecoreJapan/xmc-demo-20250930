@@ -48,6 +48,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   // See https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
 
   let paths: StaticPath[] = [];
+  let cleanedPaths: StaticPath[] = [];
   let fallback: boolean | 'blocking' = 'blocking';
 
   console.log('Bootstrap initializing CloudSDK for page:', scConfig.api.edge.clientContextId);
@@ -58,6 +59,15 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
         sites.map((site: SiteInfo) => site.name),
         context?.locales || []
       );
+      console.log('Fetched static paths:', paths[0].params.path);
+
+      cleanedPaths = paths.map((p) => ({
+        ...p,
+        params: {
+          ...p.params,
+          path: p.params.path.filter((segment) => segment !== '_site_skate-park'),
+        },
+      }));
     } catch (error) {
       console.log('Error occurred while fetching static paths');
       console.log(error);
@@ -67,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   }
 
   return {
-    paths,
+    paths: cleanedPaths,
     fallback,
   };
 };
