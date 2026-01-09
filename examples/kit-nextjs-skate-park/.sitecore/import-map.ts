@@ -6,6 +6,7 @@ import { combineImportEntries, defaultImportEntries } from '@sitecore-content-sd
 import { Link, Text, useSitecore, Placeholder, RichText, NextImage, CdpHelper, withDatasourceCheck } from '@sitecore-content-sdk/nextjs';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
 import Head from 'next/head';
 import client from 'lib/sitecore-client';
 import Image from 'next/image';
@@ -34,6 +35,12 @@ const importMap = [
       { name: 'useState', value: useState },
       { name: 'useEffect', value: useEffect },
       { name: 'default', value: React },
+    ]
+  },
+  {
+    module: 'lib/WrappedImage/WrappedImage',
+    exports: [
+      { name: 'WrappedImage', value: WrappedImage },
     ]
   },
   {

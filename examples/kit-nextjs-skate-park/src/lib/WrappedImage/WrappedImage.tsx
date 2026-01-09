@@ -17,5 +17,7 @@ export const WrappedImage: React.FC<WrappedImageProps> = ({ field }) => {
     },
   };
   // Return the JssImage component with the updated field
+  console.log('modifiedField URL:', modifiedField.value?.src);
+
   return <JssImage field={modifiedField} />;
 };
