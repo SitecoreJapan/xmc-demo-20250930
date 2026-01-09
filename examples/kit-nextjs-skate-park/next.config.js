@@ -39,7 +39,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'abc.vercel.app',
+        hostname: 'xmc-demo-20250930-k59b.vercel.app',
         port: '',
       },
     ],
@@ -52,12 +52,11 @@ const nextConfig = {
         source: '/healthz',
         destination: '/api/healthz',
       },
-      // {
-      //   source: '/-/media/:path*',
-      //   destination:
-      //     'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/jssmedia/:path*',
-      // },
-      // robots route
+      {
+        source: '/-/media/:path*',
+        destination:
+          'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/media/:path*',
+      },
       {
         source: '/robots.txt',
         destination: '/api/robots',
