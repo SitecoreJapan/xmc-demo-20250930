@@ -1,4 +1,4 @@
-import { Placeholder, Image as ContentSDKImage } from '@sitecore-content-sdk/nextjs';
+import { Placeholder } from '@sitecore-content-sdk/nextjs';
 import React, { JSX } from 'react';
 import { ComponentProps } from 'lib/component-props';
 
