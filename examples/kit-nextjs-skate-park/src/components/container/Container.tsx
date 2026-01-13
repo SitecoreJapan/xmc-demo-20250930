@@ -1,4 +1,4 @@
-import { Placeholder } from '@sitecore-content-sdk/nextjs';
+import { Placeholder, Image as ContentSDKImage } from '@sitecore-content-sdk/nextjs';
 import React, { JSX } from 'react';
 import { ComponentProps } from 'lib/component-props';
 
@@ -35,6 +35,7 @@ const Container = ({ params, rendering }: ContainerProps): JSX.Element => {
     <div className={`component container-default bkimage ${styles}`} id={id}>
       <div className="component-content" style={backgroundStyle}>
         <div className="row">
+          // <img src={'/assets/img/test2.jpg'} alt={'eROI Logo'} width={98} height={39} />
           <Placeholder name={phKey} rendering={rendering} />
         </div>
       </div>

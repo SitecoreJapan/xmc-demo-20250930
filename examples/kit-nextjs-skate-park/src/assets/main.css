@@ -18,7 +18,7 @@
 @source inline("offset-{1..12}");
 
 .bkimage {
-  background-image: url(../assets/img/test1.jpg);
+  background-image: url(/assets/img/test2.jpg);
   background-position: 0 0;
   bottom: -20%;
   height: 125%;
