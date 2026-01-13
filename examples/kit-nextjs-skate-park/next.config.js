@@ -10,7 +10,8 @@ const nextConfig = {
   i18n: {
     // These are all the locales you want to support in your application.
     // These should generally match (or at least be a subset of) those in Sitecore.
-    locales: ['en', 'ja-JP', 'en-001', 'en-002', 'de-DE'],
+    // locales: ['en', 'ja-JP', 'en-001', 'en-002', 'de-DE'],
+    locales: ['en', 'ja-JP'],
     // This is the locale that will be used when visiting a non-locale
     // prefixed path e.g. `/about`.
     defaultLocale: process.env.DEFAULT_LANGUAGE || process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en',
@@ -37,11 +38,11 @@ const nextConfig = {
         hostname: 'xmc-*.**',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: 'xmc-demo-20250930-k59b.vercel.app',
-        port: '',
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'xmc-demo-20250930-k59b.vercel.app',
+      //   port: '',
+      // },
     ],
   },
 
@@ -52,11 +53,11 @@ const nextConfig = {
         source: '/healthz',
         destination: '/api/healthz',
       },
-      {
-        source: '/-/media/:path*',
-        destination:
-          'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/media/:path*',
-      },
+      // {
+      //   source: '/-/media/:path*',
+      //   destination:
+      //     'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/media/:path*',
+      // },
       {
         source: '/robots.txt',
         destination: '/api/robots',
