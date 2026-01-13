@@ -56,6 +56,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     skip: () => false,
   });
 
+  //return NextResponse.next();
   return defineMiddleware(multisite, redirects, personalize).exec(req, ev);
 }
 
