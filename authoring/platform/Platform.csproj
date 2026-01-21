@@ -70,6 +70,7 @@
     <None Include="README.md" />
     <None Include="web.config" />
     <Content Include="App_Config\Include\zzzlanguagefallback.config" />
+    <Content Include="App_Config\Include\zzzindexfallback.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Config\Include\" />
