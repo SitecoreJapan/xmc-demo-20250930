@@ -71,6 +71,7 @@
     <None Include="web.config" />
     <Content Include="App_Config\Include\zzzlanguagefallback.config" />
     <Content Include="App_Config\Include\zzzindexfallback.config" />
+    <Content Include="App_Config\Security\Domain.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Config\Include\" />
