@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextImage as JssImage, ImageField } from '@sitecore-content-sdk/nextjs';
 import { transformUrl } from './transformUrl';
+import { useRouter } from 'next/router';
 interface WrappedImageProps {
   field: ImageField;
 }
@@ -16,12 +17,14 @@ export const WrappedImage: React.FC<WrappedImageProps> = ({ field }) => {
       src: transformedUrl, // Replace original URL with transformed URL
     },
   };
+  const router = useRouter();
+
   // Return the JssImage component with the updated field
   console.log('modifiedField URL:', modifiedField.value?.src);
 
   return (
     <>
-      <div>IS_PREVIEW: {process.env.IS_PREVIEW}</div>
+      <div>IS_PREVIEW: {router.locale}</div>
       <div>IMAGE_SITECORE_TARGET_URL: {process.env.IMAGE_SITECORE_TARGET_URL}</div>
       <div>IMAGE_SITECORE_CM: {process.env.IMAGE_SITECORE_CM}</div>
       <JssImage field={modifiedField} />
