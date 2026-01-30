@@ -7,6 +7,6 @@ import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
 export default defineConfig({
   redirects: {
     enabled: true,
-    locales: ['en', 'ja-jp'],
+    locales: ['en', 'ja-JP'],
   },
 });
