@@ -26,6 +26,10 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
     else if (!mode.isNormal)
       console.debug('Browser Events SDK is not initialized in edit and preview modes');
     else {
+      console.debug('Initializing Browser Events SDK with configuration:', {
+        sitecoreEdgeUrl: config.api.edge.edgeUrl,
+        sitecoreEdgeContextId: config.api.edge.clientContextId,
+      });
       if (config.api.edge?.clientContextId) {
         CloudSDK({
           sitecoreEdgeUrl: config.api.edge.edgeUrl,
