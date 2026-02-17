@@ -48,6 +48,10 @@ const nextConfig = {
 
   async rewrites() {
     return [
+      {
+        source: '/en-global/:path*',
+        destination: '/en-001/:path*',
+      },
       // healthz check
       {
         source: '/healthz',
