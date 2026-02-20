@@ -79,6 +79,20 @@ const nextConfig = {
     ];
   },
 
+  async headers() {
+    return [
+      {
+        source: '/sitemap:id([\\w-]{0,}).xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=60',
+          },
+        ],
+      },
+    ];
+  },
+
   webpack: (config, options) => {
     if (!options.isServer) {
       // Add a loader to strip out getComponentServerProps from components in the client bundle
