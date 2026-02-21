@@ -12,4 +12,5 @@ import sites from '.sitecore/sites.json';
 // Wire up the SitemapMiddleware handler
 const handler = new SitemapMiddleware(scClient, sites).getHandler();
 
+// https://services.support.sitecore.com/readportal/Tickets.aspx?id=CS0664384
 export default handler;
