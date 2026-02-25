@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { Placeholder, Field, DesignLibrary, Page, LinkField } from '@sitecore-content-sdk/nextjs';
 import Scripts from 'src/Scripts';
 import SitecoreStyles from 'src/components/content-sdk/SitecoreStyles';
-import Script from 'next/script';
+// import Script from 'next/script';
 
 interface LayoutProps {
   page: Page;
