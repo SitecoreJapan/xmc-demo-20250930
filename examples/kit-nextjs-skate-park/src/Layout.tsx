@@ -37,9 +37,27 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var targetUrl = "${redirectTargetUrl}";
-                if (targetUrl) {
-                  window.location.replace(targetUrl);
+                var url = ${redirectTargetUrl};
+
+                function isValidRedirectUrl(value) {
+                  if (!value || typeof value !== 'string') return false;
+
+                  var trimmed = value.trim();
+                  if (!trimmed) return false;
+
+                  // 相対パス
+                  if (trimmed.startsWith('/')) return true;
+
+                  try {
+                    var parsed = new URL(trimmed);
+                    return parsed.protocol === 'https:';
+                  } catch (e) {
+                    return false;
+                  }
+                }
+
+                if (isValidRedirectUrl(url)) {
+                  window.location.replace(url);
                 }
               })();
             `,
