@@ -3,7 +3,7 @@
  */
 import React, { JSX } from 'react';
 import Head from 'next/head';
-import { Placeholder, Field, DesignLibrary, Page } from '@sitecore-content-sdk/nextjs';
+import { Placeholder, Field, DesignLibrary, Page, LinkField } from '@sitecore-content-sdk/nextjs';
 import Scripts from 'src/Scripts';
 import SitecoreStyles from 'src/components/content-sdk/SitecoreStyles';
 
@@ -14,6 +14,7 @@ interface LayoutProps {
 interface RouteFields {
   [key: string]: unknown;
   Title?: Field;
+  MyRedirectUrl?: LinkField;
 }
 
 const Layout = ({ page }: LayoutProps): JSX.Element => {
@@ -23,6 +24,8 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
   const importMapDynamic = () => import('.sitecore/import-map');
 
+  const redirectTargetUrl = fields?.MyRedirectUrl?.value?.href;
+
   return (
     <>
       <Scripts />
@@ -30,6 +33,18 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
       <Head>
         <title>{fields?.Title?.value?.toString() || 'Page'}</title>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var targetUrl = "${redirectTargetUrl}";
+                if (targetUrl) {
+                  window.location.replace(targetUrl);
+                }
+              })();
+            `,
+          }}
+        />
       </Head>
 
       {/* root placeholder for the app, which we add components to using route data */}
