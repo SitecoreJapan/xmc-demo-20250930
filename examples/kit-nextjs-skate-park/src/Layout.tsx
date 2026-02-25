@@ -58,8 +58,63 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
       <Head>
         <title>{fields?.Title?.value?.toString() || 'Page'}</title>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+            var url = "${redirectTargetUrl}";
+
+            function isValidRedirectUrl(value) {
+              if (!value || typeof value !== 'string') return false;
+
+              var trimmed = value.trim();
+              if (!trimmed) return false;
+
+              // 相対パス許可
+              if (trimmed.startsWith('/')) return true;
+
+              try {
+                var parsed = new URL(trimmed);
+                return parsed.protocol === 'https:';
+              } catch (e) {
+                return false;
+              }
+            }
+
+            if (isValidRedirectUrl(url)) {
+              window.location.replace(url);
+            }
+          })();
+            `,
+          }}
+        />
       </Head>
-      <Script id="redirect-script" strategy="afterInteractive">
+
+      {/* root placeholder for the app, which we add components to using route data */}
+      <div className={mainClassPageEditing}>
+        {mode.isDesignLibrary ? (
+          <DesignLibrary loadImportMap={importMapDynamic} />
+        ) : (
+          <>
+            <header>
+              <div id="header">
+                {route && <Placeholder name="headless-header" rendering={route} />}
+              </div>
+            </header>
+            <main>
+              <div id="content">
+                {route && <Placeholder name="headless-main" rendering={route} />}
+              </div>
+            </main>
+            <footer>
+              <div id="footer">
+                {route && <Placeholder name="headless-footer" rendering={route} />}
+              </div>
+            </footer>
+          </>
+        )}
+      </div>
+      {/* <Script id="redirect-script" strategy="afterInteractive">
         {`
           (function() {
             var url = "${redirectTargetUrl}";
@@ -86,32 +141,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
             }
           })();
         `}
-      </Script>
-
-      {/* root placeholder for the app, which we add components to using route data */}
-      <div className={mainClassPageEditing}>
-        {mode.isDesignLibrary ? (
-          <DesignLibrary loadImportMap={importMapDynamic} />
-        ) : (
-          <>
-            <header>
-              <div id="header">
-                {route && <Placeholder name="headless-header" rendering={route} />}
-              </div>
-            </header>
-            <main>
-              <div id="content">
-                {route && <Placeholder name="headless-main" rendering={route} />}
-              </div>
-            </main>
-            <footer>
-              <div id="footer">
-                {route && <Placeholder name="headless-footer" rendering={route} />}
-              </div>
-            </footer>
-          </>
-        )}
-      </div>
+      </Script> */}
     </>
   );
 };
