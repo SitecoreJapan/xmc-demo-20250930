@@ -19,6 +19,8 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
     }
 
     console.log('Bootstrap initializing CloudSDK for page:', config.api.edge.clientContextId);
+    console.log('page.siteName:', page.siteName);
+    console.log('config.defaultSite:', config.defaultSite);
 
     const mode = page.mode;
     if (process.env.NODE_ENV === 'development')
