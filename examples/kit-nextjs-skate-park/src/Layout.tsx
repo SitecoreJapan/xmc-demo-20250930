@@ -1,7 +1,7 @@
 /**
  * This Layout is needed for Starter Kit.
  */
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import Head from 'next/head';
 import { Placeholder, Field, DesignLibrary, Page, LinkField } from '@sitecore-content-sdk/nextjs';
 import Scripts from 'src/Scripts';
@@ -23,10 +23,9 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const { route } = layout.sitecore;
   const fields = route?.fields as RouteFields;
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
-  const importMapDynamic = () => import('.sitecore/import-map');
 
   const redirectTargetUrl = fields?.MyRedirectUrl?.value?.href?.toString() || '';
-  console.log('Redirect Target URL:', redirectTargetUrl);
+  //console.log('Redirect Target URL:', redirectTargetUrl);
 
   // useEffect(() => {
   //   function isValidRedirectUrl(value: string) {
@@ -93,7 +92,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
       {/* root placeholder for the app, which we add components to using route data */}
       <div className={mainClassPageEditing}>
         {mode.isDesignLibrary ? (
-          <DesignLibrary loadImportMap={importMapDynamic} />
+          <DesignLibrary />
         ) : (
           <>
             <header>

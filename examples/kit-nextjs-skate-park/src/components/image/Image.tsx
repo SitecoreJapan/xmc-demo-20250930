@@ -1,5 +1,5 @@
 import { Field, ImageField, LinkField, useSitecore } from '@sitecore-content-sdk/nextjs';
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { ComponentProps } from 'lib/component-props';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
 
