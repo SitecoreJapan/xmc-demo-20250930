@@ -44,11 +44,11 @@ const nextConfig = {
         hostname: 'xmc-*.**',
         port: '',
       },
-      // {
-      //   protocol: 'https',
-      //   hostname: 'xmc-demo-20250930-k59b.vercel.app',
-      //   port: '',
-      // },
+      {
+        protocol: 'https',
+        hostname: 'my.lei.com',
+        port: '',
+      },
     ],
   },
 
