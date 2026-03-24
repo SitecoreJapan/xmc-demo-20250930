@@ -44,11 +44,6 @@ const nextConfig = {
         hostname: 'xmc-*.**',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: 'my.lei.com',
-        port: '',
-      },
     ],
   },
 
