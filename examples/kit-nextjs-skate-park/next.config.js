@@ -55,7 +55,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/media/:path*',
+        source: '/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
         destination:
           'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
       },
