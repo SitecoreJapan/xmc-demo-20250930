@@ -9,9 +9,9 @@ const nextConfig = {
 
   // Enable Turbopack file system caching for faster dev startup (beta)
   // See: https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack
-  experimental: {
-    turbopackFileSystemCacheForDev: true,
-  },
+  // experimental: {
+  //   turbopackFileSystemCacheForDev: true,
+  // },
 
   i18n: {
     // These are all the locales you want to support in your application.
