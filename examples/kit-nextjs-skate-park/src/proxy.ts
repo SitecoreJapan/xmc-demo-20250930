@@ -21,6 +21,7 @@ export default function proxy(req: NextRequest) {
 
   // locale を取得（例: ja, en）
   const locale = segments[1];
+  console.log('Requested locale:', { pathname, origin, locale });
 
   // external を含むかチェック
   if (pathname.includes('external')) {
