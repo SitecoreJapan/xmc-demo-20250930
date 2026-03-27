@@ -13,6 +13,8 @@ type RedirectRule = {
   destination: string | ((match: RegExpMatchArray) => string);
 };
 
+// 下記のようなデータは外部Jsonファイルから取得してもよいです。変更があった外部JSON ファイルを更新すればよいです。
+// ただし、await fetch('https://example.com/redirects.json') のように取得する場合は、手前で自分でキャッシュしないとリクエストごとに外部リクエストが発生してしまうため注意してください。
 const redirectRules: RedirectRule[] = [
   {
     pattern: /^\/old$/,

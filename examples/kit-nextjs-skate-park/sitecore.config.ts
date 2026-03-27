@@ -25,7 +25,7 @@ export default defineConfig({
   defaultLanguage: process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en',
   editingSecret: process.env.SITECORE_EDITING_SECRET,
   redirects: {
-    enabled: false,
+    enabled: true,
     locales: ['en', 'ja-JP'],
   },
   multisite: {
