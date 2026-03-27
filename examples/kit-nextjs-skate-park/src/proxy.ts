@@ -15,7 +15,7 @@ export default function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const { pathname } = req.nextUrl;
+  const { pathname, origin } = req.nextUrl;
   // パスを分解: ['', 'ja', 'xxx', ...]
   const segments = pathname.split('/');
 
