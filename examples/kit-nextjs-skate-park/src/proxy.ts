@@ -24,12 +24,10 @@ export default function proxy(req: NextRequest) {
 
   // external を含むかチェック
   if (pathname.includes('external')) {
-    const url = req.nextUrl.clone();
+    // ★ 完全に新しいURLを作る（これが重要）
+    const redirectUrl = new URL(`/${locale}/target`, origin);
 
-    // /<locale>/target にリダイレクト
-    url.pathname = `/${locale}/target`;
-
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(redirectUrl);
   }
 
   // Instantiate AFTER the guard so constructors don’t run in local-only mode
