@@ -28,6 +28,8 @@ export default function proxy(req: NextRequest) {
     // ★ 完全に新しいURLを作る（これが重要）
     const redirectUrl = new URL(`/${locale}/target`, origin);
 
+    console.log(' redirectUrl:', redirectUrl);
+
     return NextResponse.redirect(redirectUrl);
   }
 
