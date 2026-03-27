@@ -8,6 +8,22 @@ import {
 import sites from '.sitecore/sites.json';
 import scConfig from 'sitecore.config';
 
+type RedirectRule = {
+  pattern: RegExp;
+  destination: string | ((match: RegExpMatchArray) => string);
+};
+
+const redirectRules: RedirectRule[] = [
+  {
+    pattern: /^\/old$/,
+    destination: '/new',
+  },
+  {
+    pattern: /^\/product\/(.*)$/,
+    destination: (match) => `/items/${match[1]}`,
+  },
+];
+
 export default function proxy(req: NextRequest) {
   // If no Edge server contextId, skip Edge middlewares entirely.
   // (SSR/API can still use Local creds; no crash in Edge runtime.)
@@ -15,19 +31,25 @@ export default function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const { pathname, origin, locale } = req.nextUrl;
+  const url = req.nextUrl;
 
-  // locale を取得（例: ja, en）
-  console.log('Requested locale:', { pathname, origin, locale });
+  // locale取得（フォールバック付き）
+  const locale = url.locale || req.cookies.get('NEXT_LOCALE')?.value || 'ja';
 
-  // external を含むかチェック
-  if (pathname.includes('external')) {
-    // ★ 完全に新しいURLを作る（これが重要）
-    const redirectUrl = new URL(`/${locale}/target`, origin);
+  // localeを除いたパスを作る
+  const pathname = url.pathname.replace(`/${locale}`, '') || '/';
 
-    console.log(' redirectUrl:', redirectUrl);
+  for (const rule of redirectRules) {
+    const match = pathname.match(rule.pattern);
+    if (match) {
+      let destination =
+        typeof rule.destination === 'function' ? rule.destination(match) : rule.destination;
 
-    return NextResponse.redirect(redirectUrl);
+      // localeを付け直す
+      destination = `/${locale}${destination}`;
+
+      return NextResponse.redirect(new URL(destination, req.url));
+    }
   }
 
   // Instantiate AFTER the guard so constructors don’t run in local-only mode
