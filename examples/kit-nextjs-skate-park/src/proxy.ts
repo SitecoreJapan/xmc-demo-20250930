@@ -15,6 +15,23 @@ export default function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
+  const { pathname } = req.nextUrl;
+  // パスを分解: ['', 'ja', 'xxx', ...]
+  const segments = pathname.split('/');
+
+  // locale を取得（例: ja, en）
+  const locale = segments[1];
+
+  // external を含むかチェック
+  if (pathname.includes('external')) {
+    const url = req.nextUrl.clone();
+
+    // /<locale>/target にリダイレクト
+    url.pathname = `/${locale}/target`;
+
+    return NextResponse.redirect(url);
+  }
+
   // Instantiate AFTER the guard so constructors don’t run in local-only mode
   const multisite = new MultisiteProxy({
     /**
