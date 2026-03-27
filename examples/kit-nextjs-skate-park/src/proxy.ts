@@ -16,11 +16,9 @@ export default function proxy(req: NextRequest) {
   }
 
   const { pathname, origin } = req.nextUrl;
-  // パスを分解: ['', 'ja', 'xxx', ...]
-  const segments = pathname.split('/');
 
   // locale を取得（例: ja, en）
-  const locale = segments[1];
+  const locale = req.headers.get('x-next-intl-locale');
   console.log('Requested locale:', { pathname, origin, locale });
 
   // external を含むかチェック
