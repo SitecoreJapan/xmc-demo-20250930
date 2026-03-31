@@ -54,16 +54,16 @@ const nextConfig = {
         destination:
           'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
       },
-      {
-        source: '/en-global/:path*',
-        destination: '/en-001/:path*',
-        locale: false,
-      },
-      // ★ data 用（重要：locale=en はそのまま）
-      {
-        source: '/_next/data/:buildId/en/en-global/:path*.json',
-        destination: '/_next/data/:buildId/en/en-001/:path*.json',
-      },
+      // {
+      //   source: '/en-global/:path*',
+      //   destination: '/en-001/:path*',
+      //   locale: false,
+      // },
+      // // ★ data 用（重要：locale=en はそのまま）
+      // {
+      //   source: '/_next/data/:buildId/en/en-global/:path*.json',
+      //   destination: '/_next/data/:buildId/en/en-001/:path*.json',
+      // },
       // healthz check
       {
         source: '/healthz',
