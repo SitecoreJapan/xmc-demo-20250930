@@ -8,23 +8,23 @@ import {
 import sites from '.sitecore/sites.json';
 import scConfig from 'sitecore.config';
 
-type RedirectRule = {
-  pattern: RegExp;
-  destination: string | ((match: RegExpMatchArray) => string);
-};
+// type RedirectRule = {
+//   pattern: RegExp;
+//   destination: string | ((match: RegExpMatchArray) => string);
+// };
 
-// 下記のようなデータは外部Jsonファイルから取得してもよいです。変更があった外部JSON ファイルを更新すればよいです。
-// ただし、await fetch('https://example.com/redirects.json') のように取得する場合は、手前で自分でキャッシュしないとリクエストごとに外部リクエストが発生してしまうため注意してください。
-const redirectRules: RedirectRule[] = [
-  {
-    pattern: /^\/old$/,
-    destination: '/new',
-  },
-  {
-    pattern: /^\/product\/(.*)$/,
-    destination: (match) => `/items/${match[1]}`,
-  },
-];
+// // 下記のようなデータは外部Jsonファイルから取得してもよいです。変更があった外部JSON ファイルを更新すればよいです。
+// // ただし、await fetch('https://example.com/redirects.json') のように取得する場合は、手前で自分でキャッシュしないとリクエストごとに外部リクエストが発生してしまうため注意してください。
+// const redirectRules: RedirectRule[] = [
+//   {
+//     pattern: /^\/old$/,
+//     destination: '/new',
+//   },
+//   {
+//     pattern: /^\/product\/(.*)$/,
+//     destination: (match) => `/items/${match[1]}`,
+//   },
+// ];
 
 export default function proxy(req: NextRequest) {
   // If no Edge server contextId, skip Edge middlewares entirely.
@@ -33,26 +33,26 @@ export default function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const url = req.nextUrl;
+  // const url = req.nextUrl;
 
-  // locale取得（フォールバック付き）
-  const locale = url.locale || req.cookies.get('NEXT_LOCALE')?.value || 'ja';
+  // // locale取得（フォールバック付き）
+  // const locale = url.locale || req.cookies.get('NEXT_LOCALE')?.value || 'ja';
 
-  // localeを除いたパスを作る
-  const pathname = url.pathname.replace(`/${locale}`, '') || '/';
+  // // localeを除いたパスを作る
+  // const pathname = url.pathname.replace(`/${locale}`, '') || '/';
 
-  for (const rule of redirectRules) {
-    const match = pathname.match(rule.pattern);
-    if (match) {
-      let destination =
-        typeof rule.destination === 'function' ? rule.destination(match) : rule.destination;
+  // for (const rule of redirectRules) {
+  //   const match = pathname.match(rule.pattern);
+  //   if (match) {
+  //     let destination =
+  //       typeof rule.destination === 'function' ? rule.destination(match) : rule.destination;
 
-      // localeを付け直す
-      destination = `/${locale}${destination}`;
+  //     // localeを付け直す
+  //     destination = `/${locale}${destination}`;
 
-      return NextResponse.redirect(new URL(destination, req.url));
-    }
-  }
+  //     return NextResponse.redirect(new URL(destination, req.url));
+  //   }
+  // }
 
   // Instantiate AFTER the guard so constructors don’t run in local-only mode
   const multisite = new MultisiteProxy({
