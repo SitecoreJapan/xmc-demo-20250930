@@ -57,7 +57,6 @@ const nextConfig = {
       {
         source: '/en-global/:path*',
         destination: '/en-001/:path*',
-        locale: false,
       },
       {
         source: '/test-redirect',
