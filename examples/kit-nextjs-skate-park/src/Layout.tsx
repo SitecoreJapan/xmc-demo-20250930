@@ -57,7 +57,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
       <Head>
         <title>{fields?.Title?.value?.toString() || 'Page'}</title>
         <link rel="icon" href="/favicon.ico" />
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -86,7 +86,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
           })();
             `,
           }}
-        />
+        /> */}
       </Head>
 
       {/* root placeholder for the app, which we add components to using route data */}
