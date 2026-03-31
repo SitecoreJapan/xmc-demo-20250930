@@ -58,11 +58,6 @@ const nextConfig = {
         source: '/en-global/:path*',
         destination: '/en-001/:path*',
       },
-      {
-        source: '/test-redirect',
-        destination: '/en-001/NewPage',
-        locale: false,
-      },
       // healthz check
       {
         source: '/healthz',
