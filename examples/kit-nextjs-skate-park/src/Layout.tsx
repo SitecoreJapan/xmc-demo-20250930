@@ -45,10 +45,10 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
       }
     }
 
-  //   if (isValidRedirectUrl(redirectTargetUrl)) {
-  //     window.location.replace(redirectTargetUrl);
-  //   }
-  // }, [redirectTargetUrl]);
+    if (isValidRedirectUrl(redirectTargetUrl)) {
+      window.location.replace(redirectTargetUrl.replace('en-001', 'en-global')); // en-global 対応
+    }
+  }, [redirectTargetUrl]);
 
   return (
     <>
