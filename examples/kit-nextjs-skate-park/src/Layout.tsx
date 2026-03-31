@@ -1,7 +1,7 @@
 /**
  * This Layout is needed for Starter Kit.
  */
-import { JSX } from 'react';
+import { JSX, useEffect } from 'react';
 import Head from 'next/head';
 import { Placeholder, Field, DesignLibrary, Page, LinkField } from '@sitecore-content-sdk/nextjs';
 import Scripts from 'src/Scripts';
@@ -27,28 +27,28 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const redirectTargetUrl = fields?.RedirectUrl?.value?.href?.toString() || '';
   console.log('Redirect Target URL:', redirectTargetUrl);
 
-  // useEffect(() => {
-  //   function isValidRedirectUrl(value: string) {
-  //     if (!value || typeof value !== 'string') return false;
+  useEffect(() => {
+    function isValidRedirectUrl(value: string) {
+      if (!value || typeof value !== 'string') return false;
 
-  //     const trimmed = value.trim();
-  //     if (!trimmed) return false;
+      const trimmed = value.trim();
+      if (!trimmed) return false;
 
-  //     // 相対パス
-  //     if (trimmed.startsWith('/')) return true;
+      // 相対パス
+      if (trimmed.startsWith('/')) return true;
 
-  //     try {
-  //       const parsed = new URL(trimmed);
-  //       return parsed.protocol === 'https:';
-  //     } catch {
-  //       return false;
-  //     }
-  //   }
+      try {
+        const parsed = new URL(trimmed);
+        return parsed.protocol === 'https:';
+      } catch {
+        return false;
+      }
+    }
 
-  //   if (isValidRedirectUrl(redirectTargetUrl)) {
-  //     window.location.replace(redirectTargetUrl);
-  //   }
-  // }, [redirectTargetUrl]);
+    if (isValidRedirectUrl(redirectTargetUrl)) {
+      window.location.replace(redirectTargetUrl);
+    }
+  }, [redirectTargetUrl]);
 
   return (
     <>
