@@ -59,6 +59,12 @@ const nextConfig = {
         destination: '/en-001/:path*',
         locale: false,
       },
+      // ★ これを追加（超重要）
+      {
+        source: '/_next/data/:buildId/en/en-global/:path*.json',
+        destination: '/_next/data/:buildId/en-001/:path*.json',
+        locale: false,
+      },
       // healthz check
       {
         source: '/healthz',
