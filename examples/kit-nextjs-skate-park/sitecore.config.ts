@@ -26,7 +26,7 @@ export default defineConfig({
   editingSecret: process.env.SITECORE_EDITING_SECRET,
   redirects: {
     enabled: false,
-    locales: ['en', 'ja-JP'],
+    locales: ['en', 'ja-JP', 'en-global', 'en-001', 'en-150', 'en-029', 'vai-Vaii-LR'],
   },
   multisite: {
     enabled: false,
