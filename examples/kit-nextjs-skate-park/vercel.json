@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/en-global", "destination": "/en-001" },
-    { "source": "/en-global/:path*", "destination": "/en-001/:path*" }
-  ]
-}
