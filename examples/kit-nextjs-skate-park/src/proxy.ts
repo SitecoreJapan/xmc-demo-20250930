@@ -36,10 +36,10 @@ export default function proxy(req: NextRequest) {
   const url = req.nextUrl;
 
   // en-global 対応
-  if (url.pathname.startsWith('/en-global')) {
-    url.pathname = url.pathname.replace('/en-global', '/en-001');
-    return NextResponse.rewrite(url);
-  }
+  // if (url.pathname.startsWith('/en-global')) {
+  //   url.pathname = url.pathname.replace('/en-global', '/en-001');
+  //   return NextResponse.rewrite(url);
+  // }
 
   // locale取得（フォールバック付き）
   const locale = url.locale || req.cookies.get('NEXT_LOCALE')?.value || 'ja';
