@@ -5,13 +5,11 @@ import { GetComponentServerProps } from '@sitecore-content-sdk/nextjs';
 import { gql } from 'graphql-request';
 
 type MyQueryResult = {
-  data: {
-    item: {
-      rendered: {
-        sitecore: {
-          context: {
-            itemPath: string;
-          };
+  item: {
+    rendered: {
+      sitecore: {
+        context: {
+          itemPath: string;
         };
       };
     };
@@ -32,12 +30,13 @@ export const testQuery = gql`
 
 export const getComponentServerProps: GetComponentServerProps = async () => {
   const result = await client.getData<MyQueryResult>(testQuery);
+  console.log('GraphQL result', result);
 
   return { result: result };
 };
 
 const Default = (props: MyProps): JSX.Element => {
-  const results = props.result.data?.item?.rendered?.sitecore?.context?.itemPath;
+  const results = props.result.item?.rendered?.sitecore?.context?.itemPath;
 
   if (results) {
     return (

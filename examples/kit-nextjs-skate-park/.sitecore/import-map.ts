@@ -12,8 +12,9 @@ import { Link, Text, useSitecore, Placeholder, RichText, NextImage, CdpHelper, w
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
-import Head from 'next/head';
 import client from 'lib/sitecore-client';
+import { gql } from 'graphql-request';
+import Head from 'next/head';
 import Image from 'next/image';
 import * as FEAAS from '@sitecore-feaas/clientside/react';
 import nextConfig from 'next.config';
@@ -57,15 +58,21 @@ const importMap = [
     ]
   },
   {
-    module: 'next/head',
-    exports: [
-      { name: 'default', value: Head },
-    ]
-  },
-  {
     module: 'lib/sitecore-client',
     exports: [
       { name: 'default', value: client },
+    ]
+  },
+  {
+    module: 'graphql-request',
+    exports: [
+      { name: 'gql', value: gql },
+    ]
+  },
+  {
+    module: 'next/head',
+    exports: [
+      { name: 'default', value: Head },
     ]
   },
   {

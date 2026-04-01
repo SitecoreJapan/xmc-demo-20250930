@@ -15,10 +15,10 @@ import * as LinkList from 'src/components/link-list/LinkList';
 import * as LayoutColumn from 'src/components/layout-column/LayoutColumn';
 import * as LayoutBackgroundColor from 'src/components/layout-column/LayoutBackgroundColor';
 import * as Image from 'src/components/image/Image';
+import * as MyGraphQlTest from 'src/components/graphql-components/MyGraphQlTest';
 import * as ContentBlock from 'src/components/content-block/ContentBlock';
 import * as Container from 'src/components/container/Container';
 import * as ColumnSplitter from 'src/components/column-splitter/ColumnSplitter';
-import MyGraphQLTest from 'components/graphql-components/MyGraphQLTest';
 
 export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['BYOCWrapper', BYOCWrapper],
@@ -35,11 +35,10 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['LayoutColumn', { ...LayoutColumn }],
   ['LayoutBackgroundColor', { ...LayoutBackgroundColor }],
   ['Image', { ...Image }],
+  ['MyGraphQlTest', { ...MyGraphQlTest }],
   ['ContentBlock', { ...ContentBlock }],
   ['Container', { ...Container }],
   ['ColumnSplitter', { ...ColumnSplitter }],
-  ['MyGraphQLTest', { ...MyGraphQLTest }],
 ]);
 
 export default componentMap;
-
