@@ -24,7 +24,7 @@ type MyProps = ComponentProps & {
 
 export const testQuery = gql`
   query {
-    item(path: "{15993DA3-A1CE-4B2D-8047-0BCF8D129D20}", language: "en") {
+    item(path: "{074E679C-A9B7-4C24-8BF0-09D41EB82A66}", language: "en") {
       rendered
     }
   }
