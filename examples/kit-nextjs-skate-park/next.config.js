@@ -1,22 +1,22 @@
 const path = require('path');
 
-const typeValue = process.env.SITE_STYLE_TYPE;
-console.log('test: ', typeValue);
+// const typeValue = process.env.SITE_STYLE_TYPE;
+// console.log('test: ', typeValue);
 
-const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
-console.log('imagetargetURL next.config.js: ', imagetargetURL);
+// const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
+// console.log('imagetargetURL next.config.js: ', imagetargetURL);
 
-const imageCm = process.env.IMAGE_SITECORE_CM;
-console.log('imageCm next.config.js: ', imageCm);
+// const imageCm = process.env.IMAGE_SITECORE_CM;
+// console.log('imageCm next.config.js: ', imageCm);
 
-const typeValue2 = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE;
-console.log('test: ', typeValue2);
+// const typeValue2 = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE;
+// console.log('test: ', typeValue2);
 
-const imagetargetURL2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL;
-console.log('imagetargetURL next.config.js: ', imagetargetURL2);
+// const imagetargetURL2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL;
+// console.log('imagetargetURL next.config.js: ', imagetargetURL2);
 
-const imageCm2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM;
-console.log('imageCm next.config.js: ', imageCm2);
+// const imageCm2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM;
+// console.log('imageCm next.config.js: ', imageCm2);
 
 /**
  * @type {import('next').NextConfig}

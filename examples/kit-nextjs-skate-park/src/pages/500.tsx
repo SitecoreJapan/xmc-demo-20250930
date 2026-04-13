@@ -25,7 +25,7 @@ const ServerError = (): JSX.Element => (
 );
 
 const Custom500 = (props: SitecorePageProps): JSX.Element => {
-  console.log('500 props', props);
+  // console.log('500 props', props);
   return <ServerError />;
   // if (!(props && props.page)) {
   //   return <ServerError />;
