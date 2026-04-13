@@ -24,6 +24,9 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const fields = route?.fields as RouteFields;
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
 
+  const typeValue = process.env.SITE_STYLE_TYPE;
+  console.log('typeValue: ', typeValue);
+
   const redirectTargetUrl = fields?.RedirectUrl?.value?.href?.toString() || '';
   console.log('Redirect Target URL:', redirectTargetUrl);
 
