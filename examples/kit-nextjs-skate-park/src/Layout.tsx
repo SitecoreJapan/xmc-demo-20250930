@@ -120,6 +120,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
             </header>
             <main>
               <div id="content">
+                <h2>{page.siteName}</h2>
                 {route && <Placeholder name="headless-main" rendering={route} />}
               </div>
             </main>
