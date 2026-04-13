@@ -5,9 +5,7 @@
       "components/*": ["src/components/*"],
       "lib/*": ["src/lib/*"],
       "temp/*": ["src/temp/*"],
-      "assets/*": ["src/assets/*"],
-      "@my/ui": ["../components/src"],
-      "@my/ui/*": ["../components/src/*"]
+      "assets/*": ["src/assets/*"]
     },
     "target": "es5",
     "types": ["node"],
