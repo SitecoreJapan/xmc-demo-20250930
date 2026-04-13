@@ -20,7 +20,7 @@ export const WrappedImage: React.FC<WrappedImageProps> = ({ field }) => {
   const router = useRouter();
 
   // Return the JssImage component with the updated field
-  console.log('modifiedField URL:', modifiedField.value?.src);
+  //console.log('modifiedField URL:', modifiedField.value?.src);
 
   return (
     <>

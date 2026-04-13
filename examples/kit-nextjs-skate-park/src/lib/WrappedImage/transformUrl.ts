@@ -1,6 +1,6 @@
 // Custom URL transformation function using environment variables
 export const transformUrl = (url: string): string => {
-  console.log('Original URL:', url);
+  // console.log('Original URL:', url);
 
   const oldPreviewBaseUrl = process.env.IMAGE_SITECORE_TARGET_URL ?? '';
   const newPreviewBaseUrl = process.env.IMAGE_SITECORE_CM ?? '';
