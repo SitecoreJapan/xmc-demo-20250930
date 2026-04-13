@@ -2,11 +2,11 @@ import { JSX } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { SitecorePageProps, ErrorPage } from '@sitecore-content-sdk/nextjs';
-// import Layout from 'src/Layout';
+import Layout from 'src/Layout';
 import scConfig from 'sitecore.config';
 import client from 'lib/sitecore-client';
 import components from '.sitecore/component-map';
-// import Providers from 'src/Providers';
+import Providers from 'src/Providers';
 
 /**
  * Rendered in case if we have 500 error
@@ -25,17 +25,15 @@ const ServerError = (): JSX.Element => (
 );
 
 const Custom500 = (props: SitecorePageProps): JSX.Element => {
-  // console.log('500 props', props);
-  return <ServerError />;
-  // if (!(props && props.page)) {
-  //   return <ServerError />;
-  // }
+  if (!(props && props.page)) {
+    return <ServerError />;
+  }
 
-  // return (
-  //   <Providers componentProps={props.componentProps} page={props.page}>
-  //     <Layout page={props.page} />
-  //   </Providers>
-  // );
+  return (
+    <Providers componentProps={props.componentProps} page={props.page}>
+      <Layout page={props.page} />
+    </Providers>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
