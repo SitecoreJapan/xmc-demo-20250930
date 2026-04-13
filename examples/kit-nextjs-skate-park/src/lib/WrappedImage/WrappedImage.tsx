@@ -27,6 +27,7 @@ export const WrappedImage: React.FC<WrappedImageProps> = ({ field }) => {
       <div>IS_PREVIEW: {router.locale}</div>
       <div>IMAGE_SITECORE_TARGET_URL: {process.env.IMAGE_SITECORE_TARGET_URL}</div>
       <div>IMAGE_SITECORE_CM: {process.env.IMAGE_SITECORE_CM}</div>
+      <div>SITE_STYLE_TYPE: {process.env.SITE_STYLE_TYPE}</div>
       <JssImage field={modifiedField} />
     </>
   );
