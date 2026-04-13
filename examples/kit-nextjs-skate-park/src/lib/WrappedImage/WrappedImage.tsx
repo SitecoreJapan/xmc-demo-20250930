@@ -28,6 +28,9 @@ export const WrappedImage: React.FC<WrappedImageProps> = ({ field }) => {
       <div>IMAGE_SITECORE_TARGET_URL: {process.env.IMAGE_SITECORE_TARGET_URL}</div>
       <div>IMAGE_SITECORE_CM: {process.env.IMAGE_SITECORE_CM}</div>
       <div>SITE_STYLE_TYPE: {process.env.SITE_STYLE_TYPE}</div>
+      <div>IMAGE_SITECORE_TARGET_URL: {process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL}</div>
+      <div>IMAGE_SITECORE_CM: {process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM}</div>
+      <div>SITE_STYLE_TYPE: {process.env.NEXT_PUBLIC_SITE_STYLE_TYPE}</div>
       <JssImage field={modifiedField} />
     </>
   );
