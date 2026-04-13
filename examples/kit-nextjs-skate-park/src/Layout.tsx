@@ -24,26 +24,25 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const fields = route?.fields as RouteFields;
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
 
-  const typeValue = process.env.SITE_STYLE_TYPE;
-  console.log('typeValue: ', typeValue);
+  // const typeValue = process.env.SITE_STYLE_TYPE;
+  // console.log('typeValue: ', typeValue);
 
-  const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
-  console.log('imagetargetURL: ', imagetargetURL);
+  // const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
+  // console.log('imagetargetURL: ', imagetargetURL);
 
-  const imageCm = process.env.IMAGE_SITECORE_CM;
-  console.log('imageCm: ', imageCm);
+  // const imageCm = process.env.IMAGE_SITECORE_CM;
+  // console.log('imageCm: ', imageCm);
 
-  const typeValue2 = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE;
-  console.log('test: ', typeValue2);
+  // const typeValue2 = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE;
+  // console.log('test: ', typeValue2);
 
-  const imagetargetURL2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL;
-  console.log('imagetargetURL next.config.js: ', imagetargetURL2);
+  // const imagetargetURL2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL;
+  // console.log('imagetargetURL next.config.js: ', imagetargetURL2);
 
-  const imageCm2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM;
-  console.log('imageCm next.config.js: ', imageCm2);
+  // const imageCm2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM;
+  // console.log('imageCm next.config.js: ', imageCm2);
 
   const redirectTargetUrl = fields?.RedirectUrl?.value?.href?.toString() || '';
-  console.log('Redirect Target URL:', redirectTargetUrl);
 
   useEffect(() => {
     function isValidRedirectUrl(value: string) {
@@ -64,6 +63,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
     }
 
     if (isValidRedirectUrl(redirectTargetUrl)) {
+      console.log('Redirect Target URL:', redirectTargetUrl);
       window.location.replace(redirectTargetUrl.replace('en-001', 'en-global')); // en-global 対応
     }
   }, [redirectTargetUrl]);
