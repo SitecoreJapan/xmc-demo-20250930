@@ -1,5 +1,8 @@
 const path = require('path');
 
+const typeValue = process.env.SITE_STYLE_TYPE;
+console.log('test: ', typeValue);
+
 /**
  * @type {import('next').NextConfig}
  */
