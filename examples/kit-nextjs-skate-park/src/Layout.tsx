@@ -27,6 +27,12 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const typeValue = process.env.SITE_STYLE_TYPE;
   console.log('typeValue: ', typeValue);
 
+  const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
+  console.log('imagetargetURL: ', imagetargetURL);
+
+  const imageCm = process.env.IMAGE_SITECORE_CM;
+  console.log('imageCm: ', imageCm);
+
   const redirectTargetUrl = fields?.RedirectUrl?.value?.href?.toString() || '';
   console.log('Redirect Target URL:', redirectTargetUrl);
 

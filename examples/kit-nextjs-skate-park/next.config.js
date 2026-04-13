@@ -3,6 +3,12 @@ const path = require('path');
 const typeValue = process.env.SITE_STYLE_TYPE;
 console.log('test: ', typeValue);
 
+const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
+console.log('imagetargetURL next.config.js: ', imagetargetURL);
+
+const imageCm = process.env.IMAGE_SITECORE_CM;
+console.log('imageCm next.config.js: ', imageCm);
+
 /**
  * @type {import('next').NextConfig}
  */
