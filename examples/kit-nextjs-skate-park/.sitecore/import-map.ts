@@ -7,10 +7,11 @@ import {
 } from '@sitecore-content-sdk/nextjs/codegen';
 // end of built-in imports
 
-import { jsx, Fragment, jsxs } from 'react/jsx-runtime';
+import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { Link, Text, useSitecore, Placeholder, RichText, NextImage, CdpHelper, withDatasourceCheck } from '@sitecore-content-sdk/nextjs';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import NextLink from 'next/link';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
 import client from 'lib/sitecore-client';
 import { gql } from 'graphql-request';
@@ -26,8 +27,8 @@ const importMap = [
     module: 'react/jsx-runtime',
     exports: [
       { name: 'jsx', value: jsx },
-      { name: 'Fragment', value: Fragment },
       { name: 'jsxs', value: jsxs },
+      { name: 'Fragment', value: Fragment },
     ]
   },
   {
@@ -49,6 +50,12 @@ const importMap = [
       { name: 'useState', value: useState },
       { name: 'useEffect', value: useEffect },
       { name: 'default', value: React },
+    ]
+  },
+  {
+    module: 'next/link',
+    exports: [
+      { name: 'default', value: NextLink },
     ]
   },
   {

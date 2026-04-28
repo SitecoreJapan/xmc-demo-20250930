@@ -73,6 +73,7 @@
     <Content Include="App_Config\Include\zzzindexfallback.config" />
     <Content Include="App_Config\Include\enablescript.config" />
     <Content Include="App_Config\Include\zzzpublishlog.config" />
+    <Content Include="App_Config\Include\zzzversionedfiles.config" />
     <Content Include="App_Config\Security\Domains.config" />
     <Content Include="bin\HedgehogDevelopment.Razl.Service.dll" />
     <Content Include="_CMP\RazlService.asmx" />
