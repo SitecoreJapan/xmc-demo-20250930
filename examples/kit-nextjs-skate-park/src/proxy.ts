@@ -3,10 +3,12 @@ import {
   defineProxy,
   MultisiteProxy,
   PersonalizeProxy,
+  PreviewProxy,
   RedirectsProxy,
 } from '@sitecore-content-sdk/nextjs/proxy';
 import sites from '.sitecore/sites.json';
 import scConfig from 'sitecore.config';
+import client from './lib/sitecore-client';
 
 type RedirectRule = {
   pattern: RegExp;
@@ -32,6 +34,12 @@ export default function proxy(req: NextRequest) {
   if (!scConfig.api?.edge?.contextId) {
     return NextResponse.next();
   }
+
+  // PreviewProxy authorizes preview requests
+  const preview = new PreviewProxy({
+    client: client,
+    ...scConfig.api.edge,
+  });
 
   const url = req.nextUrl;
 
@@ -101,7 +109,7 @@ export default function proxy(req: NextRequest) {
     skip: () => false,
   });
 
-  return defineProxy(multisite, redirects, personalize).exec(req);
+  return defineProxy(preview, multisite, redirects, personalize).exec(req);
 }
 
 export const config = {
