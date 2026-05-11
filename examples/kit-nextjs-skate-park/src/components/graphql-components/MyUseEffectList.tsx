@@ -17,15 +17,15 @@ export const ALL_PAGE = gql`
     search(
       where: {
         AND: [
-          { name: "_path", value: "{19AC6882-9467-4AE0-93D5-E9C16CBC5AD6}", operator: CONTAINS }
+          { name: "_path", value: "{CBBBDF33-7AB8-47D8-88F2-26058A157CB8}", operator: CONTAINS }
           { name: "_language", value: "en" }
-          { name: "_templates", value: "0288EEA2-8220-4037-8206-1C472632B504", operator: EQ }
+          { name: "_templates", value: "B1202BFF-0B7E-4703-914A-A3740642A1D2", operator: EQ }
         ]
       }
       first: 5
     ) {
       results {
-        ... on CopyPage {
+        ... on Page_b1202bff0b7e4703914aa3740642a1d2 {
           path
         }
       }
@@ -40,9 +40,9 @@ const MyNavigationUsingGraphQL = (): JSX.Element => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const graphQLClient = new GraphQLRequestClient(
-        'https://xmc-sitecoresaaa3b4-serviceteamab2a-dev4734.sitecorecloud.io/sitecore/api/graph/edge',
+        'https://xmc-sitecoresaa6daf-xmcdemo20253162-test6f9c.sitecorecloud.io/sitecore/api/graph/edge',
         {
-          apiKey: '1b11949d646b4446b848c13308f1cfe0',
+          apiKey: '578e0fb943f84c8893b512cc3c749b72',
         }
       );
 
