@@ -25,7 +25,7 @@ export const ALL_PAGE = gql`
       first: 5
     ) {
       results {
-        ... on Page_b1202bff0b7e4703914aa3740642a1d2 {
+        ... on C__Page_b1202bff0b7e4703914aa3740642a1d2 {
           path
         }
       }
