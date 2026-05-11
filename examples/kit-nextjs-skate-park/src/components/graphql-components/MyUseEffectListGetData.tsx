@@ -1,6 +1,5 @@
 import { JSX, useEffect, useState } from 'react';
 import { gql } from 'graphql-request';
-import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import client from 'lib/sitecore-client';
 
 interface Results {
