@@ -7,6 +7,7 @@ import { Placeholder, Field, DesignLibrary, Page, LinkField } from '@sitecore-co
 import Scripts from 'src/Scripts';
 import SitecoreStyles from 'src/components/content-sdk/SitecoreStyles';
 // import Script from 'next/script';
+import '@theme-styles';
 
 interface LayoutProps {
   page: Page;

@@ -25,3 +25,7 @@
   top: auto;
   width: 125%;
 }
+
+body {
+  background-color: blue !important;
+}
