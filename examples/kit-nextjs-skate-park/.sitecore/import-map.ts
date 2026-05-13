@@ -13,8 +13,9 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import NextLink from 'next/link';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
-import client from 'lib/sitecore-client';
 import { gql } from 'graphql-request';
+import client from 'lib/sitecore-client';
+import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import Head from 'next/head';
 import Image from 'next/image';
 import * as FEAAS from '@sitecore-feaas/clientside/react';
@@ -65,15 +66,21 @@ const importMap = [
     ]
   },
   {
+    module: 'graphql-request',
+    exports: [
+      { name: 'gql', value: gql },
+    ]
+  },
+  {
     module: 'lib/sitecore-client',
     exports: [
       { name: 'default', value: client },
     ]
   },
   {
-    module: 'graphql-request',
+    module: '@sitecore-content-sdk/nextjs/client',
     exports: [
-      { name: 'gql', value: gql },
+      { name: 'GraphQLRequestClient', value: GraphQLRequestClient },
     ]
   },
   {
