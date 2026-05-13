@@ -110,10 +110,10 @@ const nextConfig = {
 
   webpack: (config, options) => {
     const styleType = process.env.SITE_STYLE_TYPE || 'hq';
-    console.debug(`Setting up webpack alias for style type: ${styleType}`);
+    console.log(`Setting up webpack alias for style type: ${styleType}`);
 
     const publichstyleType = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE || 'public_hq';
-    console.debug(`Public Setting up webpack alias for style type: ${publichstyleType}`);
+    console.log(`Public Setting up webpack alias for style type: ${publichstyleType}`);
 
     // alias を追加
     config.resolve.alias = {
