@@ -1,7 +1,6 @@
 import { JSX } from 'react';
 import { Field, Text } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from 'lib/component-props';
-import { Placeholder } from '@sitecore-content-sdk/react';
 
 interface Fields {
   ButtonField: Field<string>;
@@ -12,25 +11,19 @@ export type MyTextProps = ComponentProps & {
   fields: Fields;
 };
 
-export const Default = ({ params, fields, rendering }: MyTextProps): JSX.Element => {
-  const { RenderingIdentifier, styles } = params;
-
-  const phKey = `${RenderingIdentifier}-ph`;
+export const Default = (prop: MyTextProps): JSX.Element => {
   return (
-    <div className={`component  ${styles}`} id={RenderingIdentifier}>
+    <div>
       <details>
         <summary>
           <span>
-            <Text field={fields.ButtonField} />
+            <Text field={prop.fields.ButtonField} />
           </span>
         </summary>
         <div>
           <p>
-            <Text field={fields.TitleField} />
+            <Text field={prop.fields.TitleField} />
           </p>
-        </div>
-        <div>
-          <Placeholder key={phKey} name={phKey} rendering={rendering} />
         </div>
       </details>
     </div>
