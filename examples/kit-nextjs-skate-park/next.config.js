@@ -1,22 +1,7 @@
 const path = require('path');
 
-// const typeValue = process.env.SITE_STYLE_TYPE;
-// console.log('test: ', typeValue);
-
-// const imagetargetURL = process.env.IMAGE_SITECORE_TARGET_URL;
-// console.log('imagetargetURL next.config.js: ', imagetargetURL);
-
-// const imageCm = process.env.IMAGE_SITECORE_CM;
-// console.log('imageCm next.config.js: ', imageCm);
-
-// const typeValue2 = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE;
-// console.log('test: ', typeValue2);
-
-// const imagetargetURL2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_TARGET_URL;
-// console.log('imagetargetURL next.config.js: ', imagetargetURL2);
-
-// const imageCm2 = process.env.NEXT_PUBLIC_IMAGE_SITECORE_CM;
-// console.log('imageCm next.config.js: ', imageCm2);
+const typeValue = process.env.SITE_STYLE_TYPE;
+console.log('in next.config.js: ', typeValue);
 
 /**
  * @type {import('next').NextConfig}
@@ -124,6 +109,18 @@ const nextConfig = {
   },
 
   webpack: (config, options) => {
+    const styleType = process.env.SITE_STYLE_TYPE || 'hq';
+    console.debug(`Setting up webpack alias for style type: ${styleType}`);
+
+    const publichstyleType = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE || 'public_hq';
+    console.debug(`Public Setting up webpack alias for style type: ${publichstyleType}`);
+
+    // alias を追加
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@theme-styles': path.resolve(__dirname, `src/assets/${styleType}/main.scss`),
+    };
+
     if (!options.isServer) {
       // Add a loader to strip out getComponentServerProps from components in the client bundle
       config.module.rules.unshift({
