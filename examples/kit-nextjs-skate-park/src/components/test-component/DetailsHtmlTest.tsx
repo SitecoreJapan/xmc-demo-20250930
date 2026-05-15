@@ -21,11 +21,9 @@ export const Default = (prop: MyTextProps): JSX.Element => {
           </span>
         </summary>
         <div>
-          <p>
-            <Text field={prop.fields.TitleField} />
-          </p>
+          <Text field={prop.fields.TitleField} />
         </div>
       </details>
-    </div>
+    </div>t
   );
 };
