@@ -24,6 +24,6 @@ export const Default = (prop: MyTextProps): JSX.Element => {
           <Text field={prop.fields.TitleField} />
         </div>
       </details>
-    </div>t
+    </div>
   );
 };
