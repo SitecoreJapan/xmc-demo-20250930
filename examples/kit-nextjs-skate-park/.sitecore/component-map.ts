@@ -18,7 +18,7 @@ import * as LayoutColumn from 'src/components/layout-column/LayoutColumn';
 import * as LayoutBackgroundColor from 'src/components/layout-column/LayoutBackgroundColor';
 import * as Image from 'src/components/image/Image';
 import * as MyUseEffectListGetDataPassword from 'src/components/graphql-components/MyUseEffectListGetDataPassword';
-import * as MyUseEffectListGetData from 'src/components/graphql-components/MyUseEffectListGetDataPassword
+import * as MyUseEffectListGetData from 'src/components/graphql-components/MyUseEffectListGetData';
 import * as MyUseEffectList from 'src/components/graphql-components/MyUseEffectList';
 import * as MyGraphQlTest from 'src/components/graphql-components/MyGraphQlTest';
 import * as ContentBlock from 'src/components/content-block/ContentBlock';
