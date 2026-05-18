@@ -13,8 +13,9 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import NextLink from 'next/link';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
-import { gql } from 'graphql-request';
 import client from 'lib/sitecore-client';
+import { ALL_PAGE } from 'src/graphql/listpage';
+import { gql } from 'graphql-request';
 import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -66,15 +67,21 @@ const importMap = [
     ]
   },
   {
-    module: 'graphql-request',
-    exports: [
-      { name: 'gql', value: gql },
-    ]
-  },
-  {
     module: 'lib/sitecore-client',
     exports: [
       { name: 'default', value: client },
+    ]
+  },
+  {
+    module: 'src/graphql/listpage',
+    exports: [
+      { name: 'ALL_PAGE', value: ALL_PAGE },
+    ]
+  },
+  {
+    module: 'graphql-request',
+    exports: [
+      { name: 'gql', value: gql },
     ]
   },
   {

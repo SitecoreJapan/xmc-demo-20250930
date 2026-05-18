@@ -17,7 +17,8 @@ import * as LinkList from 'src/components/link-list/LinkList';
 import * as LayoutColumn from 'src/components/layout-column/LayoutColumn';
 import * as LayoutBackgroundColor from 'src/components/layout-column/LayoutBackgroundColor';
 import * as Image from 'src/components/image/Image';
-import * as MyUseEffectListGetData from 'src/components/graphql-components/MyUseEffectListGetData';
+import * as MyUseEffectListGetDataPassword from 'src/components/graphql-components/MyUseEffectListGetDataPassword';
+import * as MyUseEffectListGetData from 'src/components/graphql-components/MyUseEffectListGetDataPassword
 import * as MyUseEffectList from 'src/components/graphql-components/MyUseEffectList';
 import * as MyGraphQlTest from 'src/components/graphql-components/MyGraphQlTest';
 import * as ContentBlock from 'src/components/content-block/ContentBlock';
@@ -41,6 +42,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['LayoutColumn', { ...LayoutColumn }],
   ['LayoutBackgroundColor', { ...LayoutBackgroundColor }],
   ['Image', { ...Image }],
+  ['MyUseEffectListGetDataPassword', { ...MyUseEffectListGetDataPassword }],
   ['MyUseEffectListGetData', { ...MyUseEffectListGetData }],
   ['MyUseEffectList', { ...MyUseEffectList }],
   ['MyGraphQlTest', { ...MyGraphQlTest }],
