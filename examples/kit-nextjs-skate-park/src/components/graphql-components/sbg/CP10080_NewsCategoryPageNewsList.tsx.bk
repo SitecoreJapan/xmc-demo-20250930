@@ -1,0 +1,654 @@
+import { JSX } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  ComponentParams,
+  ComponentRendering,
+  GetComponentServerProps,
+  useSitecore,
+} from '@sitecore-content-sdk/nextjs';
+import { format } from 'date-fns';
+import DropDown from '../../func-parts/dropDown';
+import NewsCheckbox from 'src/func-parts/newsCheckbox';
+import NewsInfoQuery from 'src/SBG/query/CP10080_NewsInfo';
+import { useRouter } from 'next/router';
+import { RemoveMediaDomain } from 'src/SBG/ConvertMediaUrl';
+import qs from 'qs';
+import { listMessage, settings } from 'src/SBG/Settings';
+import { modifyHref } from 'src/SBG/modifyHref';
+import NewsInfoDatasourceQuery from 'src/SBG/query/CP10080_Datasource';
+import { ConvertEnDate } from 'src/SBG/ConvertEnDate';
+import client from 'lib/sitecore-client';
+import { toBoolean } from 'src/SBG/ToBoolean';
+import { fontReload } from 'src/SBG/FontPlusLoader';
+
+interface YearInfo {
+  yearTitle: {
+    value: string;
+  };
+}
+
+interface NewsListRootItemChild {
+  contentTitle: {
+    value: string;
+  };
+  releaseDate: {
+    jsonValue: {
+      value: string; // "2024-10-22T20:00:00Z"、"0001-01-01T00:00:00Z"、等
+    };
+  };
+  primaryCategory: {
+    jsonValue: {
+      fields: {
+        CategoryTitle: {
+          value: string;
+        };
+        CategoryIcon: {
+          value: {
+            src: string;
+          };
+        };
+      };
+    };
+  };
+  customRedirectFlg: {
+    boolValue: boolean;
+  };
+  customRedirectUrl: {
+    url: string;
+    linkType: string;
+    anchor: string;
+  };
+  url: {
+    path: string;
+  };
+  template: {
+    id: string;
+  };
+}
+
+interface NewsListGraphql {
+  search: {
+    results: NewsListRootItemChild[];
+    pageInfo: {
+      endCursor: string;
+      hasNext: boolean;
+    };
+  };
+}
+
+interface NewsListRootItem {
+  id: string;
+}
+
+export interface NewsListCategory {
+  name: string;
+  id: string;
+  categoryTitle: {
+    value: string;
+  };
+}
+
+interface Fields {
+  datasource: {
+    searchYearLabel: {
+      value: string;
+    };
+    yearInfoSelect: {
+      targetItems: YearInfo[];
+    };
+    rootItemPathSelect: {
+      targetItems: NewsListRootItem[];
+    };
+    categoryListSelect: {
+      targetItems: NewsListCategory[];
+    };
+    allCategoryText: {
+      value: string;
+    };
+  };
+}
+
+type ComponentProps = {
+  rendering: ComponentRendering;
+  params: ComponentParams;
+};
+
+type NewsCategoryPageNewsListProps = ComponentProps & {
+  // params: { [key: string]: string };
+  // fields: Fields;
+  gql_datasource: Fields;
+  newsList: NewsListRootItemChild[];
+};
+
+export const getComponentServerProps: GetComponentServerProps = async (rendering, layoutData) => {
+  const isNormal = toBoolean(process.env.NEXT_PUBLIC_IS_NORMAL || '');
+  // データソース情報の取得
+  const lang = layoutData.sitecore.context.language || '';
+  const datasourceId = rendering.dataSource || '';
+
+  const query_datasource = NewsInfoDatasourceQuery(datasourceId, lang);
+  const graphql_datasource = (await client.getData(query_datasource)) as Fields;
+
+  //ルートアイテム
+  const rootItemIds = graphql_datasource?.datasource?.rootItemPathSelect?.targetItems.flatMap(
+    (item) => {
+      return item?.id;
+    }
+  );
+
+  // 年選択情報
+  const yearInfoSelect = graphql_datasource?.datasource?.yearInfoSelect?.targetItems;
+  // 年選択情報を年タイトルの降順でソート
+  const sortedYearInfoSelect = yearInfoSelect?.sort((a, b) => {
+    return parseInt(b?.yearTitle?.value || '') - parseInt(a?.yearTitle?.value || '');
+  });
+
+  // 表示対象カテゴリー
+  const newsListCategories = graphql_datasource?.datasource?.categoryListSelect?.targetItems;
+
+  // 表示対象カテゴリーのアイテムID
+  const newsListCategoryId = newsListCategories?.flatMap((item) => {
+    return item?.id;
+  });
+
+  let strAfter = '';
+  let hasNext = false;
+  let graphqlData: NewsListGraphql;
+  const newsList: NewsListRootItemChild[] = [];
+  do {
+    const query_newsInfo = NewsInfoQuery(
+      rootItemIds,
+      lang,
+      sortedYearInfoSelect[0].yearTitle.value,
+      true,
+      [],
+      newsListCategoryId,
+      isNormal,
+      strAfter
+    );
+    graphqlData = (await client.getData(query_newsInfo)) as NewsListGraphql;
+    strAfter = graphqlData?.search?.pageInfo?.endCursor;
+    hasNext = graphqlData?.search?.pageInfo?.hasNext;
+    const newNewsList = graphqlData?.search?.results;
+    if (newNewsList != null && typeof newNewsList[Symbol.iterator] === 'function') {
+      newsList.push(...newNewsList);
+    } else {
+      strAfter = '';
+      hasNext = false;
+    }
+  } while (hasNext);
+
+  return { gql_datasource: graphql_datasource, newsList: newsList };
+};
+
+const getCookie = (name: string) => {
+  return document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(name + '='))
+    ?.split('=')[1];
+};
+
+const Default = (props: NewsCategoryPageNewsListProps): JSX.Element => {
+  const { page } = useSitecore();
+  const isExperienceEditor = page?.mode?.isEditing;
+  const isNormal = toBoolean(process.env.NEXT_PUBLIC_IS_NORMAL || '');
+  const lang = page?.layout?.sitecore?.context?.language || '';
+  const router = useRouter();
+
+  // 現在のアイテムの名前
+  const contextItemName = page?.layout?.sitecore?.route?.name;
+
+  // データソースアイテム
+  const datasource = props.gql_datasource?.datasource;
+
+  if (!datasource) {
+    // データソースが無い場合
+    // 編集画面の時だけエラーメッセージを表示する
+    if (isExperienceEditor) {
+      return (
+        <div className="error-message">
+          データソースがありません。エクスペリエンスエディターでデータソース��設定してください。
+        </div>
+      );
+    }
+
+    // 編集画面以外では何も表示しない
+    return <></>;
+  }
+  // 絞り込み年ラベル
+  const searchYearLabel = datasource?.searchYearLabel?.value;
+
+  // 年選択情報
+  const yearInfoSelect = datasource?.yearInfoSelect?.targetItems;
+  // 年選択情報を年タイトルの降順でソート
+  const sortedYearInfoSelect = yearInfoSelect?.sort((a, b) => {
+    return parseInt(b?.yearTitle?.value || '') - parseInt(a?.yearTitle?.value || '');
+  });
+  // 年選択を最新の年で初期化
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [selectedYear, setSelectedYear] = useState(sortedYearInfoSelect[0]?.yearTitle?.value);
+
+  const handleYearChange = (value: string) => {
+    const newYear = value;
+    setSelectedYear(newYear);
+    const paramCategory = checkedAllStates
+      ? ''
+      : '&' +
+        newsListCategories
+          .filter((category, index) => category && checkedStates[index])
+          .map((category) => `category[${category.name}]=${category.name}`)
+          .join('&');
+    const currentPath = router.asPath.split('?')[0]?.split('#')[0]; // 現在のパスを取得
+    router.push(
+      `${currentPath}?year=${newYear}${checkedAllStates ? '&all=on' : ''}${paramCategory}`,
+      undefined,
+      { shallow: true }
+    );
+  };
+
+  // 表示対象カテゴリー
+  const newsListCategories = datasource?.categoryListSelect?.targetItems;
+
+  // 表示対象カテゴリーのアイテムID
+  const newsListCategoryId = newsListCategories?.flatMap((item) => {
+    return item?.id;
+  });
+
+  // カテゴリー選択チェックボックス初期化
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [checkedAllStates, setCheckedAllStates] = useState(true);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [checkedStates, setCheckedStates] = useState<boolean[]>(
+    new Array(newsListCategories?.length).fill(false)
+  );
+
+  const handleAllCheckboxChange = () => {
+    const newCheckedAllStates = !checkedAllStates;
+    const paramCategory = newCheckedAllStates
+      ? ''
+      : '&' +
+        newsListCategories
+          .filter((category, index) => category && checkedStates[index])
+          .map((category) => `category[${category.name}]=${category.name}`)
+          .join('&');
+    const currentPath = router.asPath.split('?')[0]?.split('#')[0]; // 現在のパスを取得
+    if (newCheckedAllStates) {
+      setCheckedStates(new Array(newsListCategories?.length).fill(false));
+      setCheckedAllStates(true);
+      router.push(`${currentPath}?year=${selectedYear}&all=on`, undefined, { shallow: true });
+    } else if (
+      newsListCategories.filter((category, index) => category && checkedStates[index]).length == 0
+    ) {
+      setCheckedAllStates(true);
+      router.push(`${currentPath}?year=${selectedYear}`, undefined, { shallow: true });
+    } else {
+      router.push(
+        `${currentPath}?year=${selectedYear}${
+          newCheckedAllStates ? '&all=on' : ''
+        }${paramCategory}`,
+        undefined,
+        { shallow: true }
+      );
+    }
+  };
+
+  const handleCheckboxChange = (index: number) => {
+    const newCheckedStates = [...checkedStates];
+    newCheckedStates[index] = !newCheckedStates[index];
+    setCheckedStates(newCheckedStates);
+    let newCheckedAllStates = checkedAllStates;
+    if (newCheckedStates?.every((checked) => checked === false)) {
+      newCheckedAllStates = true;
+      setCheckedAllStates(true);
+    } else if (newCheckedStates?.some((checked) => checked === true)) {
+      newCheckedAllStates = false;
+      setCheckedAllStates(false);
+    }
+    const paramCategory = newCheckedAllStates
+      ? ''
+      : '&' +
+        newsListCategories
+          .filter((category, index) => category && newCheckedStates[index])
+          .map((category) => `category[${category.name}]=${category.name}`)
+          .join('&');
+    const currentPath = router.asPath.split('?')[0]?.split('#')[0]; // 現在のパスを取得
+    router.push(`${currentPath}?year=${selectedYear}${paramCategory}`, undefined, {
+      shallow: true,
+    });
+  };
+
+  // クエリパラメータ取得
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isGetQuery, setIsGetQuery] = useState(false);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    //クエリの取得を待つ
+    if (router.isReady || !isNormal) {
+      const queryString = router.asPath.split('?')[1]?.split('#')[0] || '';
+      const query = qs.parse(queryString);
+      setSelectedYear(query.year?.toString() || sortedYearInfoSelect[0]?.yearTitle?.value);
+      setCheckedAllStates(query.category ? false : true);
+      setCheckedStates(
+        Array.from({ length: newsListCategories?.length || 0 }, (_, index) => {
+          const newsCategory = newsListCategories[index];
+          return query.category
+            ? JSON.stringify(query.category).includes(
+                `"${newsCategory.name}":"${newsCategory.name}"`
+              )
+            : false;
+        })
+      );
+      setIsGetQuery(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [newsList, setNewsList] = useState<NewsListRootItemChild[]>(props.newsList);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isGetNewsList, setIsGetNewsList] = useState(false);
+  const rootItemIds = datasource?.rootItemPathSelect?.targetItems.flatMap((item) => {
+    return item?.id;
+  });
+  // GraphQLエラーかどうか
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [graphqlErrorState, setGraphqlErrorState] = useState(false);
+  //初期レンダリングかどうか
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isFirst, setIsFirst] = useState(true);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const fetchData = async (
+      selectedYear: string,
+      checkedAllStates: boolean,
+      checkedStates: boolean[]
+    ) => {
+      const aggregated: NewsListRootItemChild[] = [];
+      try {
+        let strAfter = '';
+        let hasNext = false;
+        do {
+          if (isNormal) {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/graphql_edge`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                type: 'newsInfo',
+                rootItemIds: rootItemIds,
+                lang: lang,
+                selectedYear: selectedYear,
+                checkedAllStates: checkedAllStates,
+                checkedStates: checkedStates,
+                categoryIds: newsListCategoryId,
+                strAfter: strAfter,
+              }),
+            });
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const graphqlData = (await response.json()) as NewsListGraphql;
+            const newNewsList = graphqlData?.search?.results;
+            if (newNewsList != null && typeof newNewsList[Symbol.iterator] === 'function') {
+              strAfter = graphqlData?.search?.pageInfo?.endCursor;
+              hasNext = graphqlData?.search?.pageInfo?.hasNext;
+              aggregated.push(...newNewsList);
+            } else {
+              setGraphqlErrorState(true);
+              strAfter = '';
+              hasNext = false;
+            }
+          } else {
+            const query = NewsInfoQuery(
+              rootItemIds,
+              lang,
+              selectedYear,
+              checkedAllStates,
+              checkedStates,
+              newsListCategoryId,
+              isNormal,
+              strAfter
+            );
+            const graphqlData = (await client.getData(query)) as NewsListGraphql;
+            const newNewsList = graphqlData?.search?.results;
+            if (newNewsList != null && typeof newNewsList[Symbol.iterator] === 'function') {
+              strAfter = graphqlData?.search?.pageInfo?.endCursor;
+              hasNext = graphqlData?.search?.pageInfo?.hasNext;
+              aggregated.push(...newNewsList);
+            } else {
+              setGraphqlErrorState(true);
+              strAfter = '';
+              hasNext = false;
+            }
+          }
+        } while (hasNext);
+        setNewsList(aggregated);
+        setIsGetNewsList(true);
+      } catch (error) {
+        console.error('Fetch error:', error);
+        throw new Error(`GraphQL error:${error}`);
+      }
+    };
+
+    const isLatestYear = selectedYear === sortedYearInfoSelect?.[0]?.yearTitle?.value;
+
+    const areAllStatesUnchecked =
+      Array.isArray(checkedStates) && checkedStates.every((v) => v === false);
+    // あるいは: !checkedStates?.some(Boolean)
+
+    const isDefault = isFirst && isLatestYear && checkedAllStates && areAllStatesUnchecked;
+
+    if ((isGetQuery || !isNormal) && !isDefault) {
+      setIsGetNewsList(false);
+      setNewsList([]);
+      fetchData(selectedYear, checkedAllStates, checkedStates).then(() => {
+        setIsFirst(false);
+      });
+    } else {
+      if ((isGetQuery || !isNormal) && isFirst) {
+        setIsGetNewsList(true);
+        if (isNormal) {
+          setIsFirst(false);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedYear, checkedAllStates, checkedStates]);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    // Webフォント再読み込み
+    if (!isFirst && newsList.length > 0) {
+      fontReload('.component_NewsCategoryPageNewsList');
+    }
+    // アンカー
+    const anchor = router.asPath.split('#')[1]?.split('?')[0] || '';
+    if (anchor) {
+      const element = document.getElementById(anchor);
+      if (element) {
+        element.scrollIntoView();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newsList]);
+
+  // プレビューで一覧に適時開示が表示されないように制御
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isValid, setIsValid] = useState(false);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const value = getCookie('test'); // ← ユーザーが設定するCookie名
+    console.log(value);
+    if (value === 'pass') {
+      setIsValid(true);
+    }
+  }, []);
+
+  return (
+    <div className="component_NewsCategoryPageNewsList">
+      <div
+        className="views-element-container"
+        id={`block-views-block-news-${contextItemName}`}
+        data-block-plugin-id={`views_block:news-${contextItemName}`}
+      >
+        <div role="region" aria-labelledby={`views_block__news_${contextItemName}`}>
+          <div className="js-view-dom-id-views_js_dom_id__news">
+            <div className="search-year">
+              <div>
+                <dl className="cf">
+                  <dt>{searchYearLabel}</dt>
+                  <dd>
+                    <DropDown
+                      selectedValues={
+                        lang === 'ja-JP' ? [`${selectedYear}年`] : [`${selectedYear}`]
+                      }
+                      onChange={(values: string[]) => handleYearChange(values[0])}
+                      options={sortedYearInfoSelect.map((option) => ({
+                        value: option.yearTitle.value,
+                        label:
+                          lang === 'ja-JP'
+                            ? `${option.yearTitle.value}年`
+                            : `${option.yearTitle.value}`,
+                      }))}
+                      lang={lang}
+                      isNormal={isNormal}
+                    />
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <NewsCheckbox
+              allCategoryText={datasource.allCategoryText.value}
+              newsListCategories={newsListCategories}
+              checkedAllStates={checkedAllStates}
+              handleAllCheckboxChange={handleAllCheckboxChange}
+              checkedStates={checkedStates}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+            <div className="headline-h2">
+              <h2>{selectedYear}</h2>
+            </div>
+            <div className="pt10"></div>
+            {
+              // 各ニュース記事へのリンクを一覧表示。条件に一致するページが無い場合はメッセーを表示。
+              newsList?.length > 0 ? (
+                <>
+                  {newsList
+                    ?.filter((item) => item !== null)
+                    .map((item: NewsListRootItemChild, index: number) => {
+                      const templateId = item.template.id;
+                      const isNotDisplay =
+                        !isNormal && templateId === settings.TdNewsPageTemplate && !isValid;
+                      let href = item?.url?.path;
+                      let linkType = 'internal';
+                      let anchor: string | undefined = undefined;
+                      if (
+                        item?.customRedirectFlg?.boolValue &&
+                        item?.customRedirectUrl?.url &&
+                        !item?.customRedirectUrl?.url.includes('/media/Project/sbg/sbg/')
+                      ) {
+                        href = item?.customRedirectUrl?.url;
+                        linkType = item?.customRedirectUrl?.linkType;
+                        anchor = item?.customRedirectUrl?.anchor;
+                      }
+                      return (
+                        <div
+                          className="news-box"
+                          key={`news-box-item-key-${index}`}
+                          style={isNotDisplay ? { display: 'none' } : undefined}
+                        >
+                          <a href={modifyHref(href, lang, isNormal, linkType, anchor)}>
+                            <div className="cf">
+                              <div>
+                                <div className="ring-icon-box">
+                                  <div>
+                                    <img
+                                      src={RemoveMediaDomain(
+                                        item?.primaryCategory?.jsonValue?.fields?.CategoryIcon
+                                          ?.value?.src,
+                                        isNormal
+                                      )}
+                                      alt=""
+                                    />
+                                  </div>
+
+                                  <p>
+                                    {item?.primaryCategory?.jsonValue?.fields?.CategoryTitle?.value}
+                                  </p>
+                                </div>
+                              </div>
+                              <div>
+                                <time
+                                  dateTime={format(
+                                    new Date(item?.releaseDate?.jsonValue?.value)?.toLocaleString(
+                                      'ja-JP',
+                                      {
+                                        timeZone: 'Asia/Tokyo',
+                                      }
+                                    ),
+                                    'yyyy-MM-dd'
+                                  )}
+                                >
+                                  {lang === 'ja-JP'
+                                    ? format(
+                                        new Date(
+                                          item?.releaseDate?.jsonValue?.value
+                                        )?.toLocaleString('ja-JP', {
+                                          timeZone: 'Asia/Tokyo',
+                                        }),
+                                        'yyyy年M月d日'
+                                      )
+                                    : ConvertEnDate(
+                                        new Date(
+                                          item?.releaseDate?.jsonValue?.value
+                                        )?.toLocaleString('ja-JP', {
+                                          timeZone: 'Asia/Tokyo',
+                                        })
+                                      )}
+                                </time>
+                                <p>
+                                  {isNotDisplay
+                                    ? '適時開示記事です。'
+                                    : item?.contentTitle?.value?.replace(/\r?\n/g, ' ')}
+                                </p>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      );
+                    })}
+                  <div className="pt80 pt60-sp"></div>
+                </>
+              ) : graphqlErrorState ? (
+                <>
+                  <div className="text-m">
+                    <p>
+                      {lang === 'ja-JP' ? listMessage.systemError_ja : listMessage.systemError_en}
+                    </p>
+                  </div>
+                  <div className="pt100 pt30-sp"></div>
+                </>
+              ) : isGetNewsList ? (
+                <>
+                  <div className="text-m">
+                    <p>{lang === 'ja-JP' ? listMessage.emptyList_ja : listMessage.emptyList_en}</p>
+                  </div>
+                  <div className="pt100 pt30-sp"></div>
+                </>
+              ) : (
+                <>
+                  <div className="pt100 pt30-sp"></div>
+                </>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Default;

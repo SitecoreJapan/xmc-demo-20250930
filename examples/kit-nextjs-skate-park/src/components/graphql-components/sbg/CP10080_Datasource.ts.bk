@@ -1,0 +1,44 @@
+const NewsInfoDatasourceQuery = (datasourceId: string, lang: string) => {
+  return `query {
+  datasource: item(path: "${datasourceId}", language: "${lang}") {
+    searchYearLabel: field(name: "SearchYearLabel") {
+      value
+    }
+    yearInfoSelect: field(name: "YearInfoSelect") {
+      ... on MultilistField {
+        targetItems {
+          yearTitle: field(name: "YearTitle") {
+            value
+          }
+        }
+      }
+    }
+    rootItemPathSelect: field(name: "RootItemPathSelect") {
+      ... on MultilistField {
+        targetItems {
+          id(format: "B")
+        }
+      }
+    }
+
+    categoryListSelect: field(name: "CategoryListSelect") {
+      ... on MultilistField {
+        targetItems {
+          name
+          id(format: "B")
+          categoryTitle: field(name: "CategoryTitle") {
+            ... on TextField {
+              value
+            }
+          }
+        }
+      }
+    }
+    allCategoryText: field(name: "AllCategoryText") {
+      value
+    }
+  }
+}
+`;
+};
+export default NewsInfoDatasourceQuery;
