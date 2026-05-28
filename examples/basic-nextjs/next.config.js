@@ -51,7 +51,7 @@ const nextConfig = {
       {
         source: '/-/media/:path*',
         destination:
-          'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/jssmedia/:path*',
+          'https://xmc-sitecoresaa6daf-xmcdemo20253162-test6f9c.sitecorecloud.io/-/jssmedia/:path*',
       },
       // robots route
       {
