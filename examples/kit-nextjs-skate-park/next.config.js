@@ -72,11 +72,11 @@ const nextConfig = {
         source: '/healthz',
         destination: '/api/healthz',
       },
-      // {
-      //   source: '/-/media/:path*',
-      //   destination:
-      //     'https://xmc-sitecoresaa7432-xmcdemo20254a6b-dev8dc0.sitecorecloud.io/-/media/:path*',
-      // },
+      {
+        source: '/-/media/:path*',
+        destination:
+          'https://xmc-sitecoresaa6daf-xmcdemo20253162-test6f9c.sitecorecloud.io/-/media/:path*',
+      },
       {
         source: '/robots.txt',
         destination: '/api/robots',
