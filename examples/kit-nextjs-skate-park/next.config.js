@@ -53,6 +53,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/mymedia/:path*',
+        destination:
+          'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/Project/demo/:path*?sc_lang=en',
+      },
+      {
         source: '/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
         destination:
           'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
@@ -96,6 +101,15 @@ const nextConfig = {
 
   async headers() {
     return [
+      {
+        source: '/mymedia/:path*',
+        headers: [
+          {
+            key: 'Vercel-Cache-Tag',
+            value: 'mymedia',
+          },
+        ],
+      },
       {
         source: '/sitemap:id([\\w-]{0,}).xml',
         headers: [
