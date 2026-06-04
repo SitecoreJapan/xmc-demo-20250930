@@ -105,6 +105,10 @@ const nextConfig = {
         source: '/mymedia/:path*',
         headers: [
           {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600',
+          },
+          {
             key: 'Vercel-Cache-Tag',
             value: 'mymedia',
           },
