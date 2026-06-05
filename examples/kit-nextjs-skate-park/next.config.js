@@ -111,11 +111,24 @@ const nextConfig = {
         ],
       },
       {
+        source: '/another/:path*',
+        headers: [
+          {
+            key: 'Vercel-CDN-Cache-Control',
+            value: 'public, s-maxage=36000',
+          },
+          {
+            key: 'Vercel-Cache-Tag',
+            value: 'another',
+          },
+        ],
+      },
+      {
         source: '/mymedia/:path*',
         headers: [
           {
             key: 'Vercel-CDN-Cache-Control',
-            value: 'public, s-maxage=3600',
+            value: 'public, s-maxage=36000',
           },
           {
             key: 'Vercel-Cache-Tag',
