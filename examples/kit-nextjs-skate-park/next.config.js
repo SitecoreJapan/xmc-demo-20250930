@@ -114,6 +114,10 @@ const nextConfig = {
         source: '/another/:path*',
         headers: [
           {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=3600',
+          },
+          {
             key: 'Vercel-CDN-Cache-Control',
             value: 'public, s-maxage=36000',
           },
