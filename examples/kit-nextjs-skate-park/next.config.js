@@ -132,7 +132,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Vercel-CDN-Cache-Control',
-            value: 'public, s-maxage=120',
+            value: 'public, s-maxage=300',
           },
           {
             key: 'Vercel-Cache-Tag',
