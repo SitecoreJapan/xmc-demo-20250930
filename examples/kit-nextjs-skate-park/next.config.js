@@ -127,19 +127,19 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: '/mymedia/:path*',
-        headers: [
-          {
-            key: 'Vercel-CDN-Cache-Control',
-            value: 'public, s-maxage=36000',
-          },
-          {
-            key: 'Vercel-Cache-Tag',
-            value: 'mymedia',
-          },
-        ],
-      },
+      // {
+      //   source: '/mymedia/:path*',
+      //   headers: [
+      //     {
+      //       key: 'Vercel-CDN-Cache-Control',
+      //       value: 'public, s-maxage=36000',
+      //     },
+      //     {
+      //       key: 'Vercel-Cache-Tag',
+      //       value: 'mymedia',
+      //     },
+      //   ],
+      // },
       {
         source: '/sitemap:id([\\w-]{0,}).xml',
         headers: [
