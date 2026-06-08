@@ -7,6 +7,7 @@ console.log('in next.config.js: ', typeValue);
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  trailingSlash: true,
   // Allow specifying a distinct distDir when concurrently running app in a container
   distDir: process.env.NEXTJS_DIST_DIR || '.next',
 
