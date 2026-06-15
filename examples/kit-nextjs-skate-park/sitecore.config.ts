@@ -25,7 +25,7 @@ export default defineConfig({
   defaultLanguage: process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en',
   editingSecret: process.env.SITECORE_EDITING_SECRET,
   redirects: {
-    enabled: true,
+    enabled: false,
     locales: ['en', 'ja-JP', 'en-001', 'en-150', 'en-029', 'vai-Vaii-LR'],
   },
   multisite: {
@@ -33,6 +33,7 @@ export default defineConfig({
     useCookieResolution: () => process.env.VERCEL_ENV === 'preview',
   },
   personalize: {
+    enabled: false,
     scope: process.env.NEXT_PUBLIC_PERSONALIZE_SCOPE,
     edgeTimeout: parseInt(process.env.PERSONALIZE_MIDDLEWARE_EDGE_TIMEOUT!, 10),
     cdpTimeout: parseInt(process.env.PERSONALIZE_MIDDLEWARE_EDGE_TIMEOUT!, 10),
