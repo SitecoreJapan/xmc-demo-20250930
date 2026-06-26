@@ -4,7 +4,7 @@
     <httpProtocol>
       <customHeaders>
         <add name="Access-Control-Allow-Origin"
-             value="*"
+             value="*https://xmc-3ju37k9zk8dpkweowjind9-eh.sitecorecloud.io"
              xdt:Transform="InsertIfMissing"
              xdt:Locator="Match(name)" />
       </customHeaders>
