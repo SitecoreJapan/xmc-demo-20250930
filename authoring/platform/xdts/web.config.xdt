@@ -1,55 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.webServer>
-
-    <!-- ① プレースホルダとして空の Access-Control-Allow-Origin を出力 -->
     <httpProtocol>
       <customHeaders>
-        <add name="Access-Control-Allow-Origin" value=""
-             xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
-        <add name="Vary" value="Origin"
-             xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+        <add name="Access-Control-Allow-Origin"
+             value=""
+             xdt:Locator="Match(name)"
+             xdt:Transform="InsertIfMissing" />
+        <add name="Vary"
+             value="Origin"
+             xdt:Locator="Match(name)"
+             xdt:Transform="InsertIfMissing" />
       </customHeaders>
     </httpProtocol>
 
-    <!-- ② Outbound Rule で Origin を判定して動的にエコーバック -->
     <rewrite xdt:Transform="InsertIfMissing">
       <outboundRules>
-        <rule name="CORS-AllowListedOrigins">
-          <match serverVariable="RESPONSE_Access_Control_Allow_Origin" pattern=".*" />
-          <conditions>
-            <add input="{HTTP_ORIGIN}"
-                 pattern="^https://[a-z0-9-]+(\.[a-z0-9-]+)*\.sitecorecloud\.io$" />
-          </conditions>
-          <action type="Rewrite" value="{C:0}" />
-        </rule>
-      </outboundRules>
-    </rewrite>
-
-    <rewrite>
-      <outboundRules xdt:Transform="InsertIfMissing">
-        <rule name="CORS-AllowListedOrigins">
-          <match serverVariable="RESPONSE_Access_Control_Allow_Origin" pattern=".*" />
-          <conditions>
-            <add input="{HTTP_ORIGIN}"
-                 pattern="^https://[a-z0-9-]+(\.[a-z0-9-]+)*\.sitecorecloud\.io$" />
-          </conditions>
-          <action type="Rewrite" value="{C:0}" />
-        </rule>
-      </outboundRules>
-
-      <outboundRules>
         <rule name="CORS-AllowListedOrigins"
-              xdt:Locator="Match(name)" xdt:Transform="Replace">
-          <match serverVariable="RESPONSE_Access_Control_Allow_Origin" pattern=".*" />
+              xdt:Locator="Match(name)"
+              xdt:Transform="InsertIfMissing">
+          <match serverVariable="RESPONSE_Access_Control_Allow_Origin"
+                 pattern=".*" />
           <conditions>
             <add input="{HTTP_ORIGIN}"
-                 pattern="^https://[a-z0-9-]+(\.[a-z0-9-]+)*\.sitecorecloud\.io$" />
+                 pattern="^(https://[a-z0-9-]+(\.[a-z0-9-]+)*\.sitecorecloud\.io)$" />
           </conditions>
-          <action type="Rewrite" value="{C:0}" />
+          <action type="Rewrite"
+                  value="{C:1}" />
         </rule>
       </outboundRules>
     </rewrite>
-
   </system.webServer>
 </configuration>
