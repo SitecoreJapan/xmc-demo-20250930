@@ -79,6 +79,7 @@
     <Content Include="bin\HedgehogDevelopment.Razl.Service.dll" />
     <Content Include="_CMP\RazlService.asmx" />
     <Content Include="_CMP\web.config" />
+    <Content Include="xdts\web.config.xdt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Config\Include\" />

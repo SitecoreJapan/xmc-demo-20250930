@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Origin"
+             value="*"
+             xdt:Transform="InsertIfMissing"
+             xdt:Locator="Match(name)" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+</configuration>

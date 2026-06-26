@@ -81,5 +81,11 @@
       }
     }
   },
+  "transforms": [
+    {
+      "xdtPath": "/xdts/web.config.xdt",
+      "targetPath": "/web.config"
+    }
+  ],
   "authoringPath": "./authoring"
 }
