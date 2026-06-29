@@ -1,34 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+﻿<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.webServer>
     <httpProtocol>
       <customHeaders>
         <add name="Access-Control-Allow-Origin"
-             value=""
-             xdt:Locator="Match(name)"
-             xdt:Transform="InsertIfMissing" />
-        <add name="Vary"
-             value="Origin"
-             xdt:Locator="Match(name)"
-             xdt:Transform="InsertIfMissing" />
+             value="*"
+             xdt:Transform="InsertIfMissing"
+             xdt:Locator="Match(name)" />
       </customHeaders>
     </httpProtocol>
-
-    <rewrite xdt:Transform="InsertIfMissing">
-      <outboundRules>
-        <rule name="CORS-AllowListedOrigins"
-              xdt:Locator="Match(name)"
-              xdt:Transform="InsertIfMissing">
-          <match serverVariable="RESPONSE_Access_Control_Allow_Origin"
-                 pattern=".*" />
-          <conditions>
-            <add input="{HTTP_ORIGIN}"
-                 pattern="^(https://[a-z0-9-]+(\.[a-z0-9-]+)*\.sitecorecloud\.io)$" />
-          </conditions>
-          <action type="Rewrite"
-                  value="{C:1}" />
-        </rule>
-      </outboundRules>
-    </rewrite>
   </system.webServer>
 </configuration>
