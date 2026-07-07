@@ -5,6 +5,7 @@ import { Form } from '@sitecore-content-sdk/nextjs';
 
 // end of built-in components
 import * as Title from 'src/components/title/Title';
+import * as Zipdownload from 'src/components/test-component/Zipdownload';
 import * as TestComponent from 'src/components/test-component/TestComponent';
 import * as DetailsHtmlTest from 'src/components/test-component/DetailsHtmlTest';
 import * as BlogBanner from 'src/components/test-component/BlogBanner';
@@ -32,6 +33,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['FEaaSWrapper', FEaaSWrapper],
   ['Form', Form],
   ['Title', { ...Title }],
+  ['Zipdownload', { ...Zipdownload }],
   ['TestComponent', { ...TestComponent }],
   ['DetailsHtmlTest', { ...DetailsHtmlTest }],
   ['BlogBanner', { ...BlogBanner }],

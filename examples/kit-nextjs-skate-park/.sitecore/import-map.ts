@@ -11,6 +11,7 @@ import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { Link, Text, useSitecore, Placeholder, RichText, NextImage, CdpHelper, withDatasourceCheck } from '@sitecore-content-sdk/nextjs';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import JSZip from 'jszip';
 import NextLink from 'next/link';
 import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
 import client from 'lib/sitecore-client';
@@ -52,6 +53,12 @@ const importMap = [
       { name: 'useState', value: useState },
       { name: 'useEffect', value: useEffect },
       { name: 'default', value: React },
+    ]
+  },
+  {
+    module: 'jszip',
+    exports: [
+      { name: 'default', value: JSZip },
     ]
   },
   {
