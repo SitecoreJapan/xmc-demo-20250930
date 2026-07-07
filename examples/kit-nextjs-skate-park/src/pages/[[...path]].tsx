@@ -21,7 +21,7 @@ const SitecorePage = ({ page, notFound, componentProps }: SitecorePageProps): JS
     // Since Sitecore Editor does not support Fast Refresh, need to refresh editor chromes after Fast Refresh finished
     handleEditorFastRefresh();
   }, []);
-
+  console.log('my page not found ', page);
   if (notFound || !page) {
     // Shouldn't hit this (as long as 'notFound' is being returned below), but just to be safe
     return <NotFound />;
@@ -108,6 +108,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
       componentProps: await client.getComponentData(page.layout, context, components),
     };
   }
+
+  console.log('my path getStaticProps', path);
+  console.log('my page getStaticProps', page);
+
+  if (!page && path.startsWith('mystory')) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/mystory`,
+      },
+      revalidate: 5,
+    };
+  }
+
   return {
     props,
     // Next.js will attempt to re-generate the page:

@@ -24,6 +24,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   const fields = route?.fields as RouteFields;
   const mainClassPageEditing = mode.isEditing ? 'editing-mode' : 'prod-mode';
 
+  // console.log('my page layout ', route);
   // const typeValue = process.env.SITE_STYLE_TYPE;
   // console.log('typeValue: ', typeValue);
 
