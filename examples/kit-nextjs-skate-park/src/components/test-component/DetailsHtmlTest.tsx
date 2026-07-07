@@ -16,7 +16,7 @@ export const getComponentServerProps: GetComponentServerProps = async () => {
 };
 
 export const Default = (prop: MyTextProps): JSX.Element => {
-  console.log('DetailsHtmlTest props', prop);
+  // console.log('DetailsHtmlTest props', prop);
 
   return (
     <div>
