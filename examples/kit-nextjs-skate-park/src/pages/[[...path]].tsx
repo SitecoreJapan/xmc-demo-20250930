@@ -112,15 +112,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // console.log('my path getStaticProps', path);
   // console.log('my page getStaticProps', page);
 
-  // if (!page && path.startsWith('mystory')) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: `/mystory`,
-  //     },
-  //     revalidate: 5,
-  //   };
-  // }
+  if (!page && path.startsWith('mystory')) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/mystory`,
+      },
+      revalidate: 5,
+    };
+  }
 
   return {
     props,
