@@ -69,7 +69,7 @@ export const Normal = (props: PromoProps): JSX.Element => {
   return <PromoContent {...props} renderText={renderText} />;
 };
 
-export const Default = Normal;
+export default Normal;
 
 export const WithText = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
