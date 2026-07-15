@@ -1,70 +1,64 @@
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { gql } from 'graphql-request';
-import client from 'lib/sitecore-client';
-import { GetComponentServerProps } from '@sitecore-content-sdk/nextjs';
+import { GraphQLRequestClient } from '@sitecore-content-sdk/nextjs/client';
 
-export interface QueryResult {
-  item: {
-    id: string;
-    children: {
-      results: {
-        id: string;
-        children: {
-          results: {
-            path: string;
-            idisShow: {
-              boolValue: boolean;
-            } | null;
-          }[];
-        };
-      }[];
-    };
-  } | null;
+interface Results {
+  path: string;
 }
 
+type MyNavigationResults = {
+  search: {
+    results: Results[];
+  };
+};
+
 export const ALL_PAGE = gql`
-  query GetFooterItem($id: String!, $language: String!, $targetTemplateID: [String!]!) {
-    item(path: $id, language: $language) {
-      id
-      children(includeTemplateIDs: $targetTemplateID) {
-        results {
-          id
-          children {
-            results {
-              path
-              idisShow: field(name: "Is Show") {
-                ... on CheckboxField {
-                  boolValue
-                }
-              }
-            }
-          }
+  query filterByCategory {
+    search(
+      where: {
+        AND: [
+          { name: "_path", value: "{CBBBDF33-7AB8-47D8-88F2-26058A157CB8}", operator: CONTAINS }
+          { name: "_language", value: "en" }
+          { name: "_templates", value: "B1202BFF-0B7E-4703-914A-A3740642A1D2", operator: EQ }
+        ]
+      }
+      first: 5
+    ) {
+      results {
+        ... on C__Page_b1202bff0b7e4703914aa3740642a1d2 {
+          path
         }
       }
     }
   }
 `;
 
-export const getComponentServerProps: GetComponentServerProps = async () => {
-  // プレビューではない環境のみ、静的データを取得する。ここで取得したデータは HTMLソースの末尾に JSON形式で埋め込まれる。
-
-  const result = await client.getData<QueryResult>(ALL_PAGE, {
-    id: '{F885E693-1E97-499C-B898-980CEA8D5CFC}',
-    language: 'en',
-    targetTemplateID: ['{76036F5E-CBCE-46D1-AF0A-4143F9B557AA}'],
-  });
-
-  console.log(
-    'getComponentServerProps result2:',
-    result.item?.children?.results[0]?.children?.results
-  );
-
-  return { staticResults: result };
-};
-
 const MyNavigationUsingGraphQL = (): JSX.Element => {
-  const [results, setResults] = useState<QueryResult[]>([]);
+  const [results, setResults] = useState<Results[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      const graphQLClient = new GraphQLRequestClient(
+        'https://xmc-sitecoresaa6daf-xmcdemo20253162-test6f9c.sitecorecloud.io/sitecore/api/graph/edge',
+        {
+          apiKey: '578e0fb943f84c8893b512cc3c749b72',
+        }
+      );
+
+      try {
+        const result = await graphQLClient.request<MyNavigationResults>(ALL_PAGE);
+
+        setResults(result.search.results);
+      } catch (error) {
+        console.error('GraphQL fetch error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
@@ -77,6 +71,11 @@ const MyNavigationUsingGraphQL = (): JSX.Element => {
   return (
     <div className="component-content">
       <h3>自作Navigation（SXA ComponentにGraphQLを使っている v2）</h3>
+      <ul>
+        {results.map((item, index) => (
+          <li key={index}>{item?.path ?? 'データがありません'}</li>
+        ))}
+      </ul>
     </div>
   );
 };
