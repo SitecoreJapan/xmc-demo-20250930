@@ -9,7 +9,7 @@ const client = new SitecoreClient({
       clientFactory: createGraphQLClientFactory({
         api: scConfig.api,
       }),
-      excludedPaths: getExcludePaths(), // ここで更に二つの選択肢があります。後述
+      excludedPaths: getExcludePaths(),
     }),
   },
 });

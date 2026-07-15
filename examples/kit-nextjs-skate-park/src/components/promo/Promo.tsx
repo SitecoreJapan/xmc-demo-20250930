@@ -54,7 +54,7 @@ const PromoContent = (props: PromoContentProps): JSX.Element => {
   );
 };
 
-export const Default = (props: PromoProps): JSX.Element => {
+export const Normal = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
     <>
       <div className="field-promotext">
@@ -68,6 +68,8 @@ export const Default = (props: PromoProps): JSX.Element => {
 
   return <PromoContent {...props} renderText={renderText} />;
 };
+
+export const Default = Normal;
 
 export const WithText = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
