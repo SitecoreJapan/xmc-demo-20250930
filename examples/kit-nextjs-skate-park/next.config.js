@@ -59,6 +59,11 @@ const nextConfig = {
           'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/Project/demo/:path*?sc_lang=en',
       },
       {
+        source: '/mymedia2/:path*',
+        destination:
+          'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/Project/demo/:path',
+      },
+      {
         source: '/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
         destination:
           'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c/media/:path*',
