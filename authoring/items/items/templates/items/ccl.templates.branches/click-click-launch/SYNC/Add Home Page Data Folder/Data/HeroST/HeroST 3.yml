@@ -35,7 +35,7 @@ Languages:
     - ID: "a580050c-e1c7-4d49-a8ad-4862efbc43d5"
       Hint: Link1
       Value: |
-        <link text="Learn more" linktype="external" url="http://#" anchor="" target="" />
+        <link text="Criminal Records x Sync details" linktype="external" url="/Speakers" anchor="" target="" />
     - ID: "b0d63558-b173-45c0-8169-d2b89270f939"
       Hint: Eyebrow
       Value: CRIMINAL RECORDS X SYNC

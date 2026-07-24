@@ -27,7 +27,7 @@ Languages:
     - ID: "68c2a603-f98e-42a3-be2d-dd70598c2a63"
       Hint: Link
       Value: |
-        <link text="About us" linktype="external" url="http://#" anchor="" target="" />
+        <link text="About us" linktype="external" url="/" anchor="" target="" />
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
       Value: "4c1b4957-5ab6-4dae-af05-8063e2bdfa1f"

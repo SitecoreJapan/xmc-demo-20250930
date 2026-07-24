@@ -30,7 +30,7 @@ Languages:
     - ID: "6938a6f3-824b-41d6-83ce-bce57f4cb90a"
       Hint: link
       Value: |
-        <link text="Contact us" linktype="external" url="http://#" anchor="" target="" />
+        <link text="Contact us" linktype="external" url="/" anchor="" target="" />
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
       Value: "2d60c9ff-c540-4ac1-bcf7-0a7a395040f7"

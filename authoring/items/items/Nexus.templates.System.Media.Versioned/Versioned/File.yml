@@ -15,6 +15,10 @@ SharedFields:
   Value: |
     {1930BBEB-7805-471A-A3BE-4858AC7CF696}
     {4E88F6E2-916D-4636-A485-B3FFB9C2D1CB}
+    {8DBD693F-B6F4-4542-AE07-4BB3997FCFC7}
+- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
+  Hint: __Shared revision
+  Value: "3d30d309-fd56-4e33-b7b5-067a1fd4e1cf"
 - ID: "f7d48a55-2158-4f02-9356-756654404f73"
   Hint: __Standard values
   Value: "{BB0432A0-EDAB-4F63-8A81-CDF09F48F1D8}"
@@ -25,21 +29,21 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20060327T104122
+      Value: 20060327T074122Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "cd8582c5-3854-4f4d-b369-d8ff9275bba4"
+      Value: "b1592756-3e5f-4f9c-925b-e413b6a256e4"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\admin
     - ID: "c8f93afe-bfd4-4e8f-9c61-152559854661"
       Hint: __Valid from
-      Value: 20060327T104122
+      Value: 20060327T074122Z
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20071108T135750
+      Value: 20260227T120843Z

@@ -15,8 +15,13 @@ export const Default = ({ params, fields }: RichTextProps): JSX.Element => {
   const { RenderingIdentifier, styles } = params;
   // const router = useRouter();
   // console.log('RichText locale:', router.locale);
+
+  const stylePara = {
+    width: '100%',
+  };
+
   return (
-    <div className={`component rich-text ${styles}`} id={RenderingIdentifier}>
+    <div className={`component rich-text ${styles}`} id={RenderingIdentifier} style={stylePara}>
       <div className="component-content">
         {fields ? (
           <ContentSdkRichText field={fields.Text} />

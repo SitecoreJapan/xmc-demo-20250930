@@ -8,12 +8,6 @@ SharedFields:
   Hint: __Thumbnail
   Value: |
     <image mediaid="{8EA15044-EE2C-41DB-81D6-0A9C42062814}" mediapath="/System/Template Thumbnails/audio" src="-/media/8EA15044EE2C41DB81D60A9C42062814.ashx" />
-- ID: "dbbbeca1-21c7-4906-9dd2-493c1efa59a2"
-  Hint: __Shared revision
-  Value: "e2183440-79cb-44e3-b69a-187aea27d84e"
-- ID: "fd4e2050-186c-4375-8b99-e8a85dd7436e"
-  Hint: __Enable item fallback
-  Value: 1
 Languages:
 - Language: en
   Versions:
@@ -21,14 +15,14 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20121130T054000Z
+      Value: 20121130T054000
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "9f4eed94-a1f2-4a79-9a01-2d001361ce1c"
+      Value: "851334af-2446-4532-a51d-fb11c5a0754b"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
-        sitecore\yuanwei.lei@sitecore.com
+        sitecore\admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20260107T020541Z
+      Value: "20150515T072340:635672714203323234Z"
