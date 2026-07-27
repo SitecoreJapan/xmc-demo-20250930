@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   });
 
   // Vercel CDN キャッシュ
-  res.setHeader('Cache-Control', 'public, s-maxage=100, stale-while-revalidate=300');
+  res.setHeader('CDN-Cache-Control', 'public, s-maxage=100, stale-while-revalidate=300');
 
   res.status(response.status);
 
