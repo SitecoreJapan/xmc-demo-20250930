@@ -11,6 +11,7 @@ import * as DetailsHtmlTest from 'src/components/test-component/DetailsHtmlTest'
 import * as BlogBanner from 'src/components/test-component/BlogBanner';
 import * as Banner from 'src/components/test-component/Banner';
 import * as RowSplitter from 'src/components/row-splitter/RowSplitter';
+import * as Sitecoreaiplainhtml from 'src/components/rich-text/Sitecoreaiplainhtml';
 import * as RichText from 'src/components/rich-text/RichText';
 import * as Promo from 'src/components/promo/Promo';
 import * as PartialDesignDynamicPlaceholder from 'src/components/partial-design-dynamic-placeholder/PartialDesignDynamicPlaceholder';
@@ -39,6 +40,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['BlogBanner', { ...BlogBanner }],
   ['Banner', { ...Banner }],
   ['RowSplitter', { ...RowSplitter }],
+  ['Sitecoreaiplainhtml', { ...Sitecoreaiplainhtml }],
   ['RichText', { ...RichText }],
   ['Promo', { ...Promo }],
   ['PartialDesignDynamicPlaceholder', { ...PartialDesignDynamicPlaceholder }],
