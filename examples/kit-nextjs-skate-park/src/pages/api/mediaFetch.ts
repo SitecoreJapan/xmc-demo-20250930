@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 
 const EXPERIENCE_EDGE =
-  '"https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c';
+  'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c';
 
 export async function GET(
   request: NextRequest,
@@ -53,7 +53,7 @@ export async function GET(
 
   // Cloudflare の Set-Cookie はコピーしない
 
-  responseHeaders.set('Cache-Control', 'public, s-maxage=14400, stale-while-revalidate=86400');
+  responseHeaders.set('Cache-Control', 'public, s-maxage=100, stale-while-revalidate=86400');
 
   return new Response(response.body, {
     status: response.status,
