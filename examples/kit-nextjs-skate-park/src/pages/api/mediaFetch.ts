@@ -14,6 +14,8 @@ export async function GET(
 
   const mediaUrl = new URL(`${EXPERIENCE_EDGE}/media/${path.join('/')}`);
 
+  console.log(`mediaFetch: ${mediaUrl.toString()}`);
+
   if (lang) {
     mediaUrl.searchParams.set('lang', lang);
   }
