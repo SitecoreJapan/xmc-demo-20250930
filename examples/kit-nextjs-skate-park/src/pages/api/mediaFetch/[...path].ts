@@ -16,8 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const mediaUrl = new URL(`${EXPERIENCE_EDGE}/media/${path}`);
   console.log(`mediaUrl: ${mediaUrl.toString()}`);
 
-  if (typeof req.query.lang === 'string') {
-    mediaUrl.searchParams.set('lang', req.query.lang);
+  if (typeof req.query.sc_lang === 'string') {
+    mediaUrl.searchParams.set('sc_lang', req.query.sc_lang);
   }
 
   const response = await fetch(mediaUrl);
