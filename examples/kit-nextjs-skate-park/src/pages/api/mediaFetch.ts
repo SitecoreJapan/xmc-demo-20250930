@@ -1,64 +1,51 @@
-import { NextRequest } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 const EXPERIENCE_EDGE =
   'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> }
-) {
-  const { path } = await params;
-
-  // lang だけ引き継ぐ
-  const lang = request.nextUrl.searchParams.get('lang');
-
-  const mediaUrl = new URL(`${EXPERIENCE_EDGE}/media/${path.join('/')}`);
-
-  console.log(`mediaFetch: ${mediaUrl.toString()}`);
-
-  if (lang) {
-    mediaUrl.searchParams.set('lang', lang);
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'GET') {
+    return res.status(405).end();
   }
 
-  // Range は動画等のために引き継ぐ
-  const headers: HeadersInit = {};
+  // /api/media/xxx/yyy
+  const path = Array.isArray(req.query.path) ? req.query.path.join('/') : (req.query.path ?? '');
 
-  const range = request.headers.get('range');
-  if (range) {
-    headers['Range'] = range;
+  // lang だけ転送
+  const mediaUrl = new URL(`${EXPERIENCE_EDGE}/media/${path}`);
+
+  if (typeof req.query.lang === 'string') {
+    mediaUrl.searchParams.set('lang', req.query.lang);
   }
 
-  const response = await fetch(mediaUrl.toString(), {
-    cache: 'no-store',
-    headers,
-  });
+  const response = await fetch(mediaUrl);
 
-  const responseHeaders = new Headers();
-
-  const copyHeaders = [
-    'Content-Type',
-    'Content-Length',
-    'Content-Disposition',
-    'Content-Encoding',
-    'ETag',
-    'Last-Modified',
-    'Accept-Ranges',
-    'Content-Range',
-  ];
-
-  for (const name of copyHeaders) {
+  // 必要なヘッダーだけコピー
+  ['content-type', 'content-length', 'etag', 'last-modified'].forEach((name) => {
     const value = response.headers.get(name);
     if (value) {
-      responseHeaders.set(name, value);
+      res.setHeader(name, value);
     }
+  });
+
+  // Vercel CDN キャッシュ
+  res.setHeader('Cache-Control', 'public, s-maxage=100, stale-while-revalidate=300');
+
+  res.status(response.status);
+
+  if (!response.body) {
+    return res.end();
   }
 
-  // Cloudflare の Set-Cookie はコピーしない
+  const reader = response.body.getReader();
 
-  responseHeaders.set('Cache-Control', 'public, s-maxage=100, stale-while-revalidate=86400');
+  while (true) {
+    const { done, value } = await reader.read();
 
-  return new Response(response.body, {
-    status: response.status,
-    headers: responseHeaders,
-  });
+    if (done) break;
+
+    res.write(Buffer.from(value));
+  }
+
+  res.end();
 }
