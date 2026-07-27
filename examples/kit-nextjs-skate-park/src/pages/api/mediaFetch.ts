@@ -3,9 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const EXPERIENCE_EDGE =
   'https://edge.sitecorecloud.io/sitecoresaa6daf-xmcdemo20253162-test6f9c-330c';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method !== 'GET') {
-    return res.status(405).end();
+    res.status(405).end();
+    return;
   }
 
   // /api/media/xxx/yyy
@@ -34,7 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   res.status(response.status);
 
   if (!response.body) {
-    return res.end();
+    res.end();
+    return;
   }
 
   const reader = response.body.getReader();
