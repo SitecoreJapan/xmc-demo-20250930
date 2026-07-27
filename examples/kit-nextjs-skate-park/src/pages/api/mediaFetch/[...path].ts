@@ -14,6 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // lang だけ転送
   const mediaUrl = new URL(`${EXPERIENCE_EDGE}/media/${path}`);
+  console.log(`mediaUrl: ${mediaUrl.toString()}`);
 
   if (typeof req.query.lang === 'string') {
     mediaUrl.searchParams.set('lang', req.query.lang);
