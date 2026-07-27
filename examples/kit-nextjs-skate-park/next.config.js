@@ -85,7 +85,7 @@ const nextConfig = {
       },
       {
         source: '/-/media/:path*',
-        destination: '/api/mediaFetch/:path*',
+        destination: '/api/mediaFetch?path=:path*',
       },
       {
         source: '/robots.txt',
