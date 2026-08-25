@@ -39,25 +39,25 @@ const MyListUsingGraphQL = (props: Props): JSX.Element => {
   }, []);
 
   // パスワードの認証状態が変わるたびに、データを再取得して表示を更新する
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        if (!isPreview) return;
+  // useEffect(() => {
+  //   const fetchData = async (): Promise<void> => {
+  //     try {
+  //       if (!isPreview) return;
 
-        const response = await fetch(`/api/getlistdata?password=${password}`);
+  //       const response = await fetch(`/api/getlistdata?password=${password}`);
 
-        const data: Results[] = await response.json();
+  //       const data: Results[] = await response.json();
 
-        setResults(data);
-      } catch (error) {
-        console.error('API fetch error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setResults(data);
+  //     } catch (error) {
+  //       console.error('API fetch error:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, [password]);
+  //   fetchData();
+  // }, [password]);
 
   if (loading) {
     return (

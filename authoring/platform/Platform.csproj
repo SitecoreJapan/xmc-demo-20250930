@@ -76,6 +76,7 @@
     <Content Include="App_Config\Include\zzzversionedfiles.config" />
     <Content Include="App_Config\Include\zzz.HistoryEngine.config" />
     <Content Include="App_Config\Include\zzzusePost.config" />
+    <Content Include="App_Config\Include\zzzCheckLinkDependecy.config" />
     <Content Include="App_Config\Security\Domains.config" />
     <Content Include="bin\HedgehogDevelopment.Razl.Service.dll" />
     <Content Include="_CMP\RazlService.asmx" />
