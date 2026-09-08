@@ -26,11 +26,7 @@ interface PromoContentProps extends PromoProps {
   renderText: (fields: Fields) => JSX.Element;
 }
 
-export const getComponentServerProps: GetComponentServerProps = async (
-  rendering,
-  layoutData,
-  context
-) => {
+export const getComponentServerProps: GetComponentServerProps = async (rendering, layoutData) => {
   const datasourceId = rendering.dataSource;
   console.log('★YouMayLikeContents language:', layoutData.sitecore.context.language);
   console.log('★YouMayLikeContents datasourceId:', datasourceId);
