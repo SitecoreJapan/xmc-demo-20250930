@@ -1,9 +1,11 @@
 // Below are built-in components that are available in the app, it's recommended to keep them as is
+import { NextjsContentSdkComponent } from '@sitecore-content-sdk/nextjs';
 
-import { BYOCWrapper, NextjsContentSdkComponent, FEaaSWrapper } from '@sitecore-content-sdk/nextjs';
+
+import { BYOCWrapper, FEaaSWrapper } from '@sitecore-content-sdk/nextjs';
 import { Form } from '@sitecore-content-sdk/nextjs';
 
-// end of built-in components
+// end of built-in import section
 import * as Title from 'src/components/title/Title';
 import * as Zipdownload from 'src/components/test-component/Zipdownload';
 import * as TestComponent from 'src/components/test-component/TestComponent';

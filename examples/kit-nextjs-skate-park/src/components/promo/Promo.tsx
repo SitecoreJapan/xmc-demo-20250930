@@ -6,6 +6,8 @@ import {
   ImageField,
   Field,
   LinkField,
+  GetComponentServerProps,
+  withDatasourceCheck,
 } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from 'lib/component-props';
 
@@ -23,6 +25,18 @@ type PromoProps = ComponentProps & {
 interface PromoContentProps extends PromoProps {
   renderText: (fields: Fields) => JSX.Element;
 }
+
+export const getComponentServerProps: GetComponentServerProps = async (
+  rendering,
+  layoutData,
+  context
+) => {
+  const datasourceId = rendering.dataSource;
+  console.log('★YouMayLikeContents language:', layoutData.sitecore.context.language);
+  console.log('★YouMayLikeContents datasourceId:', datasourceId);
+
+  return { result: [] };
+};
 
 const PromoContent = (props: PromoContentProps): JSX.Element => {
   const { fields, params, renderText } = props;
@@ -54,7 +68,7 @@ const PromoContent = (props: PromoContentProps): JSX.Element => {
   );
 };
 
-export const Normal = (props: PromoProps): JSX.Element => {
+const Normal = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
     <>
       <div className="field-promotext">
@@ -69,7 +83,7 @@ export const Normal = (props: PromoProps): JSX.Element => {
   return <PromoContent {...props} renderText={renderText} />;
 };
 
-export default Normal;
+export const Default = withDatasourceCheck()<PromoProps>(Normal);
 
 export const WithText = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
