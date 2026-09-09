@@ -72,7 +72,7 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
   return (
     <>
       <Scripts />
-      <SitecoreStyles layoutData={layout} />
+      {/* <SitecoreStyles layoutData={layout} /> */}
       <Head>
         <title>{fields?.Title?.value?.toString() || 'Page'}</title>
         <link rel="icon" href="/favicon.ico" />
