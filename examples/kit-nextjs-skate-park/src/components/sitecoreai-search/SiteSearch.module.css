@@ -1,5 +1,5 @@
 .searchWrapper {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   font-family: sans-serif;
 }
@@ -24,6 +24,72 @@
   border-radius: 4px;
 }
 
+.contentLayout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* --- facet パネル --- */
+.facetPanel {
+  width: 220px;
+  flex-shrink: 0;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.facetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.facetTitle {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.facetClearButton {
+  background: none;
+  border: none;
+  color: #0b5fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+.facetList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.facetOption {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.facetValueLabel {
+  flex: 1;
+}
+
+.facetCount {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* --- 検索結果パネル --- */
+.resultsPanel {
+  flex: 1;
+  min-width: 0;
+}
+
 .helperText {
   color: #666;
 }
@@ -36,11 +102,6 @@
   color: #555;
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
-}
-
-.fetchingBadge {
-  color: #888;
-  font-style: italic;
 }
 
 .resultList {

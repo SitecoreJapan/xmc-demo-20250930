@@ -9,12 +9,13 @@ import {
 
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { Link, Text, useSitecore, Placeholder, RichText, NextImage, withDatasourceCheck, CdpHelper } from '@sitecore-content-sdk/nextjs';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import React from 'react';
 import JSZip from 'jszip';
 import NextLink from 'next/link';
 import { useSearch } from '@sitecore-content-sdk/nextjs/search';
 import { useDebounce } from 'src/components/sitecoreai-search/useDebounce';
+import { useRouter } from 'next/router';
 import client from 'lib/sitecore-client';
 import { ALL_PAGE } from 'src/graphql/listpage';
 import { gql } from 'graphql-request';
@@ -53,6 +54,7 @@ const importMap = [
     exports: [
       { name: 'useState', value: useState },
       { name: 'useEffect', value: useEffect },
+      { name: 'useMemo', value: useMemo },
       { name: 'default', value: React },
     ]
   },
@@ -78,6 +80,12 @@ const importMap = [
     module: 'src/components/sitecoreai-search/useDebounce',
     exports: [
       { name: 'useDebounce', value: useDebounce },
+    ]
+  },
+  {
+    module: 'next/router',
+    exports: [
+      { name: 'useRouter', value: useRouter },
     ]
   },
   {
