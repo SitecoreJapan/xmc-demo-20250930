@@ -157,23 +157,19 @@ const nextConfig = {
     ];
   },
 
-  webpack: (config, options) => {
-    // const styleType = process.env.SITE_STYLE_TYPE || 'hq';
-    // console.log(`Setting up webpack alias for style type: ${styleType}`);
-
-    // const publichstyleType = process.env.NEXT_PUBLIC_SITE_STYLE_TYPE || 'public_hq';
-    // console.log(`Public Setting up webpack alias for style type: ${publichstyleType}`);
-
-    // const target = path.resolve(__dirname, `src/assets/${styleType}/main.css`);
-    // console.log('@theme-styles =>', target);
-
-    // // alias を追加
-    // config.resolve.alias = {
-    //   ...config.resolve.alias,
-    //   '@theme-styles': path.resolve(__dirname, `src/assets/${styleType}/main.css`),
-    // };
-
-    if (!options.isServer) {
+  webpack: (config, { webpack, isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        events: require.resolve('events/'),
+        fs: false,
+      };
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+          // events だけでなく、node: プレフィックス全体を一律で除去する
+          resource.request = resource.request.replace(/^node:/, '');
+        })
+      );
       // Add a loader to strip out getComponentServerProps from components in the client bundle
       config.module.rules.unshift({
         test: /src\\components\\.*\.tsx$/,

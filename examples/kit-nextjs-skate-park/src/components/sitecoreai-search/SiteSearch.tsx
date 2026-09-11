@@ -3,10 +3,10 @@ import { useSearch } from '@sitecore-content-sdk/nextjs/search';
 // FacetRequest/FacetField/FacetResult/FacetValue は @sitecore-content-sdk/search からエクスポートされています。
 // (参考: Content SDK 2.3 リリースノートで追加された公開型)
 import type { FacetField, FacetRequest } from '@sitecore-content-sdk/search';
-import { useDebounce } from './useDebounce';
 import styles from './SiteSearch.module.css';
 import { JSX } from 'react';
 import { useRouter } from 'next/router';
+import { useDebounce } from 'lib/useDebounce';
 
 /**
  * ==========================================================================
@@ -301,4 +301,3 @@ export const Default = (): JSX.Element => {
     </section>
   );
 };
-

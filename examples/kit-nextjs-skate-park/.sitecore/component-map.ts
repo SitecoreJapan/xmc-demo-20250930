@@ -12,7 +12,6 @@ import * as TestComponent from 'src/components/test-component/TestComponent';
 import * as DetailsHtmlTest from 'src/components/test-component/DetailsHtmlTest';
 import * as BlogBanner from 'src/components/test-component/BlogBanner';
 import * as Banner from 'src/components/test-component/Banner';
-import * as UseDebounce from 'src/components/sitecoreai-search/useDebounce';
 import * as SiteSearch from 'src/components/sitecoreai-search/SiteSearch';
 import * as RowSplitter from 'src/components/row-splitter/RowSplitter';
 import * as Sitecoreaiplainhtml from 'src/components/rich-text/Sitecoreaiplainhtml';
@@ -43,7 +42,6 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['DetailsHtmlTest', { ...DetailsHtmlTest }],
   ['BlogBanner', { ...BlogBanner }],
   ['Banner', { ...Banner }],
-  ['UseDebounce', { ...UseDebounce }],
   ['SiteSearch', { ...SiteSearch }],
   ['RowSplitter', { ...RowSplitter }],
   ['Sitecoreaiplainhtml', { ...Sitecoreaiplainhtml }],
