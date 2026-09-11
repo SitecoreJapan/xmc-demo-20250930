@@ -27,7 +27,7 @@ type SearchDocument = {
   id: string;
   title: string;
   description?: string;
-  url?: string;
+  sc_url?: string;
   publishDate?: string;
   type?: string; // ファセット対応フィールド
   itemid?: string; // アイテムID
@@ -244,9 +244,17 @@ export const Default = (): JSX.Element => {
               <ul className={styles.resultList}>
                 {results.map((item) => (
                   <li key={item.id} className={styles.resultItem}>
-                    <a href={item.url ?? item.image ?? '#'} className={styles.resultTitle}>
+                    <a
+                      href={item.sc_url ?? '#'}
+                      className={styles.resultTitle}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {item.title}
                     </a>
+                    {item.image && (
+                      <img src={item.image} alt={item.title} className={styles.resultImage} />
+                    )}
                     {item.type && <span className={styles.resultType}>{item.type}</span>}
                     {item.description && (
                       <p className={styles.resultDescription}>{item.description}</p>
