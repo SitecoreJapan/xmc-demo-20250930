@@ -1,13 +1,15 @@
 .searchWrapper {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   font-family: sans-serif;
+  padding-top: 2.5rem;
 }
 
+/* --- 検索インプット（最上部） --- */
 .searchForm {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .searchInput {
@@ -24,13 +26,22 @@
   border-radius: 4px;
 }
 
-.contentLayout {
+.helperText {
+  color: #666;
+}
+
+.errorText {
+  color: #c0392b;
+}
+
+/* --- 全体レイアウト: 左=facet / 右=(検索結果メイン) --- */
+.resultsLayout {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: flex-start;
 }
 
-/* --- facet パネル --- */
+/* --- 左: facet パネル --- */
 .facetPanel {
   width: 220px;
   flex-shrink: 0;
@@ -46,7 +57,7 @@
   margin-bottom: 0.75rem;
 }
 
-.facetTitle {
+.facetHeading {
   margin: 0;
   font-size: 1rem;
 }
@@ -60,22 +71,41 @@
   padding: 0;
 }
 
+.facetGroup {
+  margin-bottom: 1rem;
+}
+
+.facetGroup:last-child {
+  margin-bottom: 0;
+}
+
+.facetTitle {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
 .facetList {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.facetOption {
+.facetItem {
+  padding: 0.2rem 0;
+}
+
+.facetLabel {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.3rem 0;
   cursor: pointer;
   font-size: 0.9rem;
 }
 
-.facetValueLabel {
+.facetLabel span:first-of-type {
   flex: 1;
 }
 
@@ -84,32 +114,29 @@
   font-size: 0.8rem;
 }
 
-/* --- 検索結果パネル --- */
-.resultsPanel {
+/* --- 中央〜右: 検索結果メイン領域（サマリー、結果+MLT、ページネーション） --- */
+.resultsMain {
   flex: 1;
   min-width: 0;
 }
 
-.helperText {
-  color: #666;
-}
-
-.errorText {
-  color: #c0392b;
-}
-
-.resultImage {
-  width: 200px;
-  height: 100px;
-  object-fit: cover; /* 画像を切り抜いて枠を埋める。歪ませたくない場合はこちら推奨 */
-}
 .resultSummary {
   color: #555;
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
 }
 
+/* --- 検索結果（中央）+ MLTパネル（右）の横並び --- */
+.resultsAndMlt {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* --- 中央: 検索結果リスト --- */
 .resultList {
+  flex: 1;
+  min-width: 0;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -118,17 +145,49 @@
 .resultItem {
   padding: 0.9rem 0;
   border-bottom: 1px solid #eee;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.resultItem:hover {
+  background-color: #fafafa;
+}
+
+/* クリックされ、MLTパネルの元になっている検索結果をハイライト */
+.resultItemActive {
+  background-color: #f0f6ff;
 }
 
 .resultTitle {
+  display: inline-block;
   font-size: 1.05rem;
   font-weight: 600;
   color: #0b5fff;
   text-decoration: none;
+  margin-bottom: 0.4rem;
 }
 
 .resultTitle:hover {
   text-decoration: underline;
+}
+
+.resultImage {
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.resultType {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #555;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .resultDescription {
@@ -153,5 +212,41 @@
 
 .pageStatus {
   color: #555;
+}
+
+/* --- 右: More Like This (MLT) パネル --- */
+.mltPanel {
+  width: 350px;
+  flex-shrink: 0;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.mltHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.mltHeading {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.mltList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mltItem {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.mltItem:last-child {
+  border-bottom: none;
 }
 

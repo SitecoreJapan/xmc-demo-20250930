@@ -32,7 +32,7 @@ const Container = ({ params, rendering }: ContainerProps): JSX.Element => {
   }
 
   return (
-    <div className={`component container-default bkimage ${styles}`} id={id}>
+    <div className={`component container-default ${styles}`} id={id}>
       <div className="component-content" style={backgroundStyle}>
         <div className="row">
           <Placeholder name={phKey} rendering={rendering} />

@@ -121,10 +121,10 @@ const Layout = ({ page }: LayoutProps): JSX.Element => {
             </header>
             <main>
               <div id="content">
-                <h2>{page.siteName}</h2>
+                {/* <h2>{page.siteName}</h2>
                 <div data-theme={page.siteName}>
                   <div className="my-box">CSS Variable Box</div>
-                </div>
+                </div> */}
                 {route && <Placeholder name="headless-main" rendering={route} />}
               </div>
             </main>
