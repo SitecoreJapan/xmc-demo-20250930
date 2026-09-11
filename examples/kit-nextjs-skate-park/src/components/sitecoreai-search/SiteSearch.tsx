@@ -85,7 +85,7 @@ export const Default = (): JSX.Element => {
     return FACETABLE_FIELDS.map((fieldName) => {
       const selectedValues = facetSelections[fieldName];
       return selectedValues?.length
-        ? { name: fieldName, filter: { operator: 'or', values: selectedValues } }
+        ? { name: fieldName, filters: [{ operator: 'eq', value: selectedValues }] }
         : { name: fieldName };
     });
   }, [JSON.stringify(facetSelections)]);
