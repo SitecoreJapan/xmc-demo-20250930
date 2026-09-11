@@ -98,6 +98,11 @@
   color: #c0392b;
 }
 
+.resultImage {
+  width: 200px;
+  height: 100px;
+  object-fit: cover; /* 画像を切り抜いて枠を埋める。歪ませたくない場合はこちら推奨 */
+}
 .resultSummary {
   color: #555;
   margin-bottom: 0.75rem;
@@ -149,3 +154,4 @@
 .pageStatus {
   color: #555;
 }
+

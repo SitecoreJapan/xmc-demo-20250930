@@ -15,7 +15,6 @@ import JSZip from 'jszip';
 import NextLink from 'next/link';
 import { useSearch } from '@sitecore-content-sdk/nextjs/search';
 import { useRouter } from 'next/router';
-import { useDebounce } from 'lib/useDebounce';
 import client from 'lib/sitecore-client';
 import { ALL_PAGE } from 'src/graphql/listpage';
 import { gql } from 'graphql-request';
@@ -80,12 +79,6 @@ const importMap = [
     module: 'next/router',
     exports: [
       { name: 'useRouter', value: useRouter },
-    ]
-  },
-  {
-    module: 'lib/useDebounce',
-    exports: [
-      { name: 'useDebounce', value: useDebounce },
     ]
   },
   {
