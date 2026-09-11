@@ -8,12 +8,13 @@ import {
 // end of built-in imports
 
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import { Link, Text, useSitecore, Placeholder, RichText, NextImage, CdpHelper, withDatasourceCheck } from '@sitecore-content-sdk/nextjs';
+import { Link, Text, useSitecore, Placeholder, RichText, NextImage, withDatasourceCheck, CdpHelper } from '@sitecore-content-sdk/nextjs';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import JSZip from 'jszip';
 import NextLink from 'next/link';
-import { WrappedImage } from 'lib/WrappedImage/WrappedImage';
+import { useSearch } from '@sitecore-content-sdk/nextjs/search';
+import { useDebounce } from 'src/components/sitecoreai-search/useDebounce';
 import client from 'lib/sitecore-client';
 import { ALL_PAGE } from 'src/graphql/listpage';
 import { gql } from 'graphql-request';
@@ -43,8 +44,8 @@ const importMap = [
       { name: 'Placeholder', value: Placeholder },
       { name: 'RichText', value: RichText },
       { name: 'NextImage', value: NextImage },
-      { name: 'CdpHelper', value: CdpHelper },
       { name: 'withDatasourceCheck', value: withDatasourceCheck },
+      { name: 'CdpHelper', value: CdpHelper },
     ]
   },
   {
@@ -68,9 +69,15 @@ const importMap = [
     ]
   },
   {
-    module: 'lib/WrappedImage/WrappedImage',
+    module: '@sitecore-content-sdk/nextjs/search',
     exports: [
-      { name: 'WrappedImage', value: WrappedImage },
+      { name: 'useSearch', value: useSearch },
+    ]
+  },
+  {
+    module: 'src/components/sitecoreai-search/useDebounce',
+    exports: [
+      { name: 'useDebounce', value: useDebounce },
     ]
   },
   {
