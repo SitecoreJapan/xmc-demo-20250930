@@ -10,20 +10,27 @@
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1.25rem;
+  width: 1210px; /* 900 + 300 + gap(8px) 以上を確保 */
+  box-sizing: border-box;
 }
 
 .searchInput {
-  flex: 1;
+  box-sizing: border-box; /* padding/borderをwidthに含める */
   padding: 0.6rem 0.8rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 900px;
+  flex-shrink: 0; /* 縮小を完全に禁止し、常に固定幅を維持する */
 }
 
 .sortSelect {
+  box-sizing: border-box;
   padding: 0.6rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 300px;
+  flex-shrink: 0; /* 同上 */
 }
 
 .helperText {

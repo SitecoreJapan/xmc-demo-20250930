@@ -61,7 +61,7 @@ const FACETABLE_FIELDS: string[] = ['type'];
 const SEARCH_INDEX_ID = process.env.NEXT_PUBLIC_SEARCH_INDEX_ID ?? '<YOUR_SEARCH_INDEX_ID>';
 export const Default = (): JSX.Element => {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState('Sitecore');
+  const [inputValue, setInputValue] = useState('');
   const [page, setPage] = useState(1);
   const [sortIndex, setSortIndex] = useState(0);
   // フィールド名 -> 選択済みの値の配列（例: { type: ['news', 'blog'] }）
