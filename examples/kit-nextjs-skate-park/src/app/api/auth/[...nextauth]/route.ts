@@ -1,29 +1,12 @@
-// app/api/hello/[id]/route.ts
-// App Router の Route Handler サンプル
-// アクセス例: GET /api/hello/1  → 200
-//            GET /api/hello/999 → 404
+import { HealthcheckMiddleware } from '@sitecore-content-sdk/nextjs/monitoring';
 
-import { NextRequest, NextResponse } from 'next/server';
+/**
+ * This Next.js API route is used to handle healthz check request.
+ * By default this is used only by Sitecore XM Cloud (when running as editing host),
+ * but could be used in other deployment scenarios.
+ */
 
-// 疑似データ（本来は DB や外部 API から取得）
-const items: Record<string, { id: string; name: string }> = {
-  '1': { id: '1', name: 'Alice' },
-  '2': { id: '2', name: 'Bob' },
-};
+// Wire up the HealthcheckMiddleware handler
+const handler = new HealthcheckMiddleware().getHandler();
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const item = items[id];
-
-  if (!item) {
-    // 見つからない場合は 404 を明示的に返す
-    return NextResponse.json({ message: `Item ${id} not found` }, { status: 404 });
-  }
-
-  return NextResponse.json(item, { status: 200 });
-}
-
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  return NextResponse.json({ message: 'created', data: body }, { status: 201 });
-}
+export default handler;
