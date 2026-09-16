@@ -15,7 +15,7 @@ const client = new SitecoreClient({
 });
 
 function getExcludePaths(): string[] | undefined {
-  return ['/About', '/mystory'];
+  return ['/'];
 }
 
 export default client;
