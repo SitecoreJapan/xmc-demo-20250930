@@ -29,7 +29,7 @@ export default defineConfig({
     locales: ['en', 'ja-JP', 'en-001', 'en-150', 'en-029', 'vai-Vaii-LR'],
   },
   multisite: {
-    enabled: true,
+    enabled: false,
     useCookieResolution: () => process.env.VERCEL_ENV === 'preview',
   },
   personalize: {
