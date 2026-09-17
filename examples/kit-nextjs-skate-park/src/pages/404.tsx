@@ -25,6 +25,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     page: null,
   };
 
+  console.log('Fetching 404 page scConfig.generateStaticPaths:' + scConfig.generateStaticPaths);
+
   if (scConfig.generateStaticPaths) {
     try {
       props.page = await client.getErrorPage(ErrorPage.NotFound, {
@@ -36,6 +38,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       console.log(error);
     }
   }
+
+  console.log('404 page props: ' + JSON.stringify(props));
+  console.log('404 page props: ' + JSON.stringify(props.page));
 
   if (props.page) {
     props.componentProps = await client.getComponentData(props.page.layout, context, components);
