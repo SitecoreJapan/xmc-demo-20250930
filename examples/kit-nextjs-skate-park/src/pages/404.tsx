@@ -13,6 +13,7 @@ const Custom404 = (props: SitecorePageProps): JSX.Element => {
     return <NotFound />;
   }
 
+  console.log('In Custom404: ' + JSON.stringify(props));
   return (
     <Providers componentProps={props.componentProps} page={props.page}>
       <Layout page={props.page} />
