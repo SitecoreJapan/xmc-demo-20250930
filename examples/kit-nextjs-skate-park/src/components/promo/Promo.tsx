@@ -64,7 +64,7 @@ const PromoContent = (props: PromoContentProps): JSX.Element => {
   );
 };
 
-const Normal = (props: PromoProps): JSX.Element => {
+export const Default = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
     <>
       <div className="field-promotext">
@@ -78,8 +78,6 @@ const Normal = (props: PromoProps): JSX.Element => {
 
   return <PromoContent {...props} renderText={renderText} />;
 };
-
-export const Default = withDatasourceCheck()<PromoProps>(Normal);
 
 export const WithText = (props: PromoProps): JSX.Element => {
   const renderText = (fields: Fields) => (
