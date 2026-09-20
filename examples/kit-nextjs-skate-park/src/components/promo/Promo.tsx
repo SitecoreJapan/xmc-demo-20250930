@@ -7,7 +7,6 @@ import {
   Field,
   LinkField,
   GetComponentServerProps,
-  withDatasourceCheck,
 } from '@sitecore-content-sdk/nextjs';
 import { ComponentProps } from 'lib/component-props';
 
