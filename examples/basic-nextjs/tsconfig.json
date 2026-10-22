@@ -31,6 +31,11 @@
     "incremental": true,
     "forceConsistentCasingInFileNames": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../kit-nextjs-skate-park/src/lib/sitecore-client-styles.ts"
+  ],
   "exclude": ["node_modules"]
 }
