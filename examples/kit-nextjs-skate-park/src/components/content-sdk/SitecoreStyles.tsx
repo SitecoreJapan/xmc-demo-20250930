@@ -16,6 +16,8 @@ const SitecoreStyles = ({
 }) => {
   const headLinks = client.getHeadLinks(layoutData, { enableStyles, enableThemes });
 
+  console.debug('SitecoreStyles headLinks', headLinks);
+
   if (headLinks.length === 0) {
     return null;
   }
