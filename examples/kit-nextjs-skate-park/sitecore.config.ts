@@ -5,32 +5,12 @@ import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
  * https://doc.sitecore.com/xmc/en/developers/content-sdk/the-sitecore-configuration-file.html
  */
 export default defineConfig({
-  api: {
-    edge: {
-      contextId:
-        process.env.SITECORE_EDGE_CONTEXT_ID ||
-        process.env.NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID ||
-        '',
-      clientContextId: process.env.NEXT_PUBLIC_SITECORE_EDGE_CONTEXT_ID,
-      edgeUrl:
-        process.env.NEXT_PUBLIC_SITECORE_EDGE_PLATFORM_HOSTNAME ||
-        'https://edge-platform.sitecorecloud.io',
-    },
-    local: {
-      apiKey: process.env.NEXT_PUBLIC_SITECORE_API_KEY || '',
-      apiHost: process.env.NEXT_PUBLIC_SITECORE_API_HOST || '',
-    },
-  },
   redirects: {
     enabled: false,
-    locales: ['en', 'ja-JP', 'en-001', 'en-150', 'en-029', 'vai-Vaii-LR'],
+    locales: ['en'],
   },
   multisite: {
     enabled: false,
     useCookieResolution: () => process.env.VERCEL_ENV === 'preview',
   },
-  personalize: {
-    enabled: false,
-  },
-  rewriteMediaUrls: true,
 });
