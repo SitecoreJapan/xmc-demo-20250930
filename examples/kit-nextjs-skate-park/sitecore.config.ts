@@ -5,10 +5,6 @@ import { defineConfig } from '@sitecore-content-sdk/nextjs/config';
  * https://doc.sitecore.com/xmc/en/developers/content-sdk/the-sitecore-configuration-file.html
  */
 export default defineConfig({
-  redirects: {
-    enabled: false,
-    locales: ['en'],
-  },
   multisite: {
     enabled: false,
     useCookieResolution: () => process.env.VERCEL_ENV === 'preview',
