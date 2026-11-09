@@ -65,7 +65,6 @@ const CdpPageView = (): JSX.Element => {
       gender: 'female',
       mobile: '+3531234567',
       phone: '+3531234567',
-      street: ['Tara Street'],
       city: 'Dublin',
       country: 'IE',
       identifiers: [
