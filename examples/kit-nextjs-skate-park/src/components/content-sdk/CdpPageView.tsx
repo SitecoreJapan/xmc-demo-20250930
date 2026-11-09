@@ -73,6 +73,7 @@ const CdpPageView = (): JSX.Element => {
           provider: 'test2',
         },
       ],
+      extensionData: { myfield: 'customValue' },
     }).catch((e) => console.debug(e));
   }, [mode, route, context.variantId, siteName]);
 
