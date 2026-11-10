@@ -5,6 +5,15 @@ import config from 'sitecore.config';
 import { JSX } from 'react';
 import { personalize } from '@sitecore-content-sdk/personalize';
 
+interface PersonalizeResponse {
+  json(): Promise<PersonalizeData>;
+}
+
+interface PersonalizeData {
+  // 実際のレスポンスに合わせて定義してください
+  [key: string]: unknown;
+}
+
 /**
  * This is the CDP page view component.
  * It uses the Sitecore Cloud SDK to enable page view events on the client-side.
@@ -87,17 +96,36 @@ const CdpPageView = (): JSX.Element => {
       extensionData: { myfield: 'customValue' },
     }).catch((e) => console.debug(e));
 
-    const loadData = async () => {
-      const result = await personalize({
-        channel: 'WEB',
-        friendlyId: 'testheadlessper',
-      });
-      console.log('P123');
-      console.log('Personalization response: ', result);
-      alert('Personalization response: ' + JSON.stringify(result));
+    const loadData = async (): Promise<void> => {
+      try {
+        const response = await personalize({
+          channel: 'WEB',
+          friendlyId: 'testheadlessper',
+        });
+
+        if (
+          typeof response !== 'object' ||
+          response === null ||
+          !('json' in response) ||
+          typeof response.json !== 'function'
+        ) {
+          throw new Error('Invalid response from personalize()');
+        }
+
+        const typedResponse = response as PersonalizeResponse;
+        const data: PersonalizeData = await typedResponse.json();
+
+        console.log(data);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error('Failed to load products:', error.message);
+        } else {
+          console.error('Failed to load products:', error);
+        }
+      }
     };
 
-    loadData();
+    void loadData();
   }, [mode, route, context.variantId, siteName]);
 
   return <></>;
