@@ -1,6 +1,6 @@
 import { CdpHelper, useSitecore } from '@sitecore-content-sdk/nextjs';
 import { useEffect } from 'react';
-import { pageView, identity } from '@sitecore-content-sdk/events';
+import { pageView, identity, event } from '@sitecore-content-sdk/events';
 import config from 'sitecore.config';
 import { JSX } from 'react';
 
@@ -52,6 +52,15 @@ const CdpPageView = (): JSX.Element => {
       pageVariantId,
       language,
     }).catch((e) => console.debug(e));
+
+    event({
+      type: 'myPageView',
+      language: 'EN',
+      page: 'home',
+      channel: 'WEB',
+      currency: 'EUR',
+      extensionData: { customKey: 'customValue' },
+    });
 
     identity({
       language: 'EN',
