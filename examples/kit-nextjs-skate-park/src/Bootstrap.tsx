@@ -3,6 +3,10 @@ import { SitecorePageProps, initContentSdk } from '@sitecore-content-sdk/nextjs'
 import { eventsPlugin } from '@sitecore-content-sdk/events';
 import { analyticsBrowserAdapter, analyticsPlugin } from '@sitecore-content-sdk/analytics-core';
 import config from 'sitecore.config';
+import {
+  personalizeBrowserPlugin,
+  personalizeBrowserAdapter,
+} from '@sitecore-content-sdk/personalize';
 
 /**
  * The Bootstrap component is the entry point for performing any initialization logic
@@ -48,6 +52,10 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
               adapter: analyticsBrowserAdapter(),
             }),
             eventsPlugin(),
+            personalizeBrowserPlugin({
+              options: { enablePersonalizeCookie: true },
+              adapter: personalizeBrowserAdapter(),
+            }),
           ],
         });
       } else {
