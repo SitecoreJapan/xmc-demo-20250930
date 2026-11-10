@@ -59,7 +59,7 @@ const CdpPageView = (): JSX.Element => {
       page: 'home',
       channel: 'WEB',
       currency: 'EUR',
-      customData: { anyKey: 'anyValue' },
+      customData: { customKey1: 'customValue1', customKey2: 'customValue2' },
       extensionData: { customKey1: 'customValue1', customKey2: 'customValue2' },
     });
 
