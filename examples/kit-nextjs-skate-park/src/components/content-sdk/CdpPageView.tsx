@@ -6,12 +6,7 @@ import { JSX } from 'react';
 import { personalize } from '@sitecore-content-sdk/personalize';
 
 interface PersonalizeResponse {
-  json(): Promise<PersonalizeData>;
-}
-
-interface PersonalizeData {
-  // 実際のレスポンスに合わせて定義してください
-  [key: string]: unknown;
+  message: string;
 }
 
 /**
@@ -103,19 +98,9 @@ const CdpPageView = (): JSX.Element => {
           friendlyId: 'testheadlessper',
         });
 
-        if (
-          typeof response !== 'object' ||
-          response === null ||
-          !('json' in response) ||
-          typeof response.json !== 'function'
-        ) {
-          throw new Error('Invalid response from personalize()');
-        }
-
         const typedResponse = response as PersonalizeResponse;
-        const data: PersonalizeData = await typedResponse.json();
 
-        console.log(data);
+        console.log(typedResponse.message);
       } catch (error: unknown) {
         if (error instanceof Error) {
           console.error('Failed to load products:', error.message);
