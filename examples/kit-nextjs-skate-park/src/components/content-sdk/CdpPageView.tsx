@@ -92,6 +92,7 @@ const CdpPageView = (): JSX.Element => {
         channel: 'WEB',
         friendlyId: 'testheadlessper',
       });
+      alert('123');
       alert('Personalization response: ' + JSON.stringify(result));
     };
 
