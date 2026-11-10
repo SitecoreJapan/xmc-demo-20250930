@@ -65,7 +65,6 @@ const CdpPageView = (): JSX.Element => {
       channel: 'WEB',
       currency: 'EUR',
       extensionData: { customKey1: 'extValue1', customKey2: 'extValue2' },
-      customData: { customKey1: 'customValue1', customKey2: 'customValue2' },
       myData: { customKey1: 'myValue1', customKey2: 'myValue2' },
     });
     identity({
