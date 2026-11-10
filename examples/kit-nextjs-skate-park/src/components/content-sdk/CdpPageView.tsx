@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { pageView, identity, event } from '@sitecore-content-sdk/events';
 import config from 'sitecore.config';
 import { JSX } from 'react';
+import { personalize } from '@sitecore-content-sdk/personalize';
 
 /**
  * This is the CDP page view component.
@@ -85,6 +86,17 @@ const CdpPageView = (): JSX.Element => {
       ],
       extensionData: { myfield: 'customValue' },
     }).catch((e) => console.debug(e));
+
+    personalize({
+      channel: 'WEB',
+      friendlyId: 'testheadlessper',
+    })
+      .then((response) => {
+        alert('Personalization response: ' + JSON.stringify(response));
+      })
+      .catch((error) => {
+        console.error('Error during personalization:', error);
+      });
   }, [mode, route, context.variantId, siteName]);
 
   return <></>;
