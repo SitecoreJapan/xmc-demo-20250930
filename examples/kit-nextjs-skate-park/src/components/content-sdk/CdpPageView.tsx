@@ -87,16 +87,15 @@ const CdpPageView = (): JSX.Element => {
       extensionData: { myfield: 'customValue' },
     }).catch((e) => console.debug(e));
 
-    personalize({
-      channel: 'WEB',
-      friendlyId: 'testheadlessper',
-    })
-      .then((response) => {
-        alert('Personalization response: ' + JSON.stringify(response));
-      })
-      .catch((error) => {
-        console.error('Error during personalization:', error);
+    const loadData = async () => {
+      const result = await personalize({
+        channel: 'WEB',
+        friendlyId: 'testheadlessper',
       });
+      alert('Personalization response: ' + JSON.stringify(result));
+    };
+
+    loadData();
   }, [mode, route, context.variantId, siteName]);
 
   return <></>;
