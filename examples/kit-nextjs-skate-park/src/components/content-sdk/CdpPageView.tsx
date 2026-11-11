@@ -9,6 +9,18 @@ interface PersonalizeResponse {
   message: string;
 }
 
+const getNameFromEmail = (email: string) => {
+  const localPart = email.split('@')[0];
+  const parts = localPart.split('.');
+
+  const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+
+  return {
+    firstName: capitalize(parts[0] ?? ''),
+    lastName: capitalize(parts.slice(1).join(' ')),
+  };
+};
+
 const CdpPageView = (): JSX.Element => {
   const {
     page: { layout, siteName, mode },
@@ -35,6 +47,9 @@ const CdpPageView = (): JSX.Element => {
       return;
     }
 
+    const normalizedEmail = email.trim();
+    const { firstName, lastName } = getNameFromEmail(normalizedEmail);
+
     try {
       await identity({
         language: 'EN',
@@ -43,11 +58,11 @@ const CdpPageView = (): JSX.Element => {
         currency: 'EUR',
 
         // 入力された email を使用
-        email: email.trim(),
+        email: normalizedEmail,
 
         title: 'Miss',
-        firstName: 'Jane',
-        lastName: 'Doe',
+        firstName: firstName,
+        lastName: lastName,
         gender: 'female',
         mobile: '+3531234567',
         phone: '+3531234567',
@@ -56,7 +71,7 @@ const CdpPageView = (): JSX.Element => {
 
         identifiers: [
           {
-            id: email.trim(),
+            id: normalizedEmail,
             provider: 'test2',
           },
         ],
