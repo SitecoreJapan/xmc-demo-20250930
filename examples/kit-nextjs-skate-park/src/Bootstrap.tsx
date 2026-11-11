@@ -46,14 +46,14 @@ const Bootstrap = (props: SitecorePageProps): JSX.Element | null => {
           plugins: [
             analyticsPlugin({
               options: {
-                enableCookie: true,
+                enableCookie: false,
                 cookieDomain: window.location.hostname.replace(/^www\./, ''),
               },
               adapter: analyticsBrowserAdapter(),
             }),
             eventsPlugin(),
             personalizeBrowserPlugin({
-              options: { enablePersonalizeCookie: true },
+              options: { enablePersonalizeCookie: false },
               adapter: personalizeBrowserAdapter(),
             }),
           ],
