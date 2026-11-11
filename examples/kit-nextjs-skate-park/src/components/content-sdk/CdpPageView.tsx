@@ -145,7 +145,7 @@ const CdpPageView = (): JSX.Element => {
     };
 
     void loadData();
-  }, [mode, route, context.variantId, siteName]);
+  }, [mode, route, context.variantId, siteName, email]);
 
   return (
     <div>
