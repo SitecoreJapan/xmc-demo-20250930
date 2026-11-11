@@ -160,7 +160,7 @@ const CdpPageView = (): JSX.Element => {
     };
 
     void loadData();
-  }, [mode, route, context.variantId, siteName, email]);
+  }, [mode, route, context.variantId, siteName]);
 
   return (
     <div>
