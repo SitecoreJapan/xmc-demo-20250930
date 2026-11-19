@@ -77,7 +77,7 @@ const CdpPageView = (): JSX.Element => {
         ],
 
         extensionData: {
-          myfield: 'customValue',
+          myField: 'customValue',
         },
       });
 
