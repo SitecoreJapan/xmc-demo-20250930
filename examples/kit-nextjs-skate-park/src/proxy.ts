@@ -109,16 +109,25 @@ export default function proxy(req: NextRequest) {
     skip: () => false,
   });
 
-  const requestHeaders = new Headers(req.headers);
-  requestHeaders.set('x-custom-xxx', 'abc');
+  // URLをコピー
+  const urlclone = req.nextUrl.clone();
 
-  const modifiedRequest = new NextRequest(req.url, {
-    method: req.method,
-    headers: requestHeaders,
-    body: req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined,
-  });
+  // 内部的に myparam=abc を追加
+  urlclone.searchParams.set('myparam', 'abc');
 
-  return defineProxy(preview, multisite, redirects, personalize).exec(modifiedRequest);
+  // URLを変更したrequestを作る
+  const modifiedReq = new NextRequest(urlclone, req);
+
+  // const requestHeaders = new Headers(req.headers);
+  // requestHeaders.set('x-custom-xxx', 'abc');
+
+  // const modifiedRequest = new NextRequest(req.url, {
+  //   method: req.method,
+  //   headers: requestHeaders,
+  //   body: req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined,
+  // });
+
+  return defineProxy(preview, multisite, redirects, personalize).exec(modifiedReq);
 }
 
 export const config = {
