@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   defineProxy,
   MultisiteProxy,
@@ -109,7 +109,16 @@ export default function proxy(req: NextRequest) {
     skip: () => false,
   });
 
-  return defineProxy(preview, multisite, redirects, personalize).exec(req);
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set('x-custom-xxx', 'abc');
+
+  const modifiedRequest = new NextRequest(req.url, {
+    method: req.method,
+    headers: requestHeaders,
+    body: req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined,
+  });
+
+  return defineProxy(preview, multisite, redirects, personalize).exec(modifiedRequest);
 }
 
 export const config = {
