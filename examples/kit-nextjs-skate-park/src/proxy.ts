@@ -110,13 +110,14 @@ export default function proxy(req: NextRequest) {
   });
 
   // URLをコピー
-  // const urlclone = req.nextUrl.clone();
+  const urlclone = req.nextUrl.clone();
 
-  // // 内部的に myparam=abc を追加
-  // urlclone.searchParams.set('myparam', 'abc');
+  // 内部的に myparam=abc を追加
+  urlclone.searchParams.set('myparam', 'abc');
+  urlclone.searchParams.set('utm_content', 'aaaa');
 
-  // // URLを変更したrequestを作る
-  // const modifiedReq = new NextRequest(urlclone, req);
+  // URLを変更したrequestを作る
+  const modifiedReq = new NextRequest(urlclone, req);
 
   // const requestHeaders = new Headers(req.headers);
   // requestHeaders.set('x-custom-xxx', 'abc');
@@ -127,7 +128,7 @@ export default function proxy(req: NextRequest) {
   //   body: req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined,
   // });
 
-  return defineProxy(preview, multisite, redirects, personalize).exec(req);
+  return defineProxy(preview, multisite, redirects, personalize).exec(modifiedReq);
 }
 
 export const config = {
